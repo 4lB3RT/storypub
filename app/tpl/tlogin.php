@@ -1,5 +1,10 @@
+<?php
+include 'head_common.php';
+?>
+<body>
 
-    <body>
+    <header>
+        <h1>Login</h1>
+    </header>
 
-<h1>login</h1>
-    </body>
+</body>
