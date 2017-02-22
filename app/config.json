@@ -1,0 +1,14 @@
+{
+	"app":{
+		"title":"XFramework",
+		"version":"1.0"
+	},
+	"dbconf":{
+		"driver":"mysql",
+		"dbhost":"localhost",
+		"dbuser":"root",
+		"dbpass":"linuxlinux",
+		"dbname":"storypub"
+	}
+
+}
