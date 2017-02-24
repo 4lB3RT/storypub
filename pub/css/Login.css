@@ -1,0 +1,34 @@
+h1{
+    cursor: pointer;
+}
+h1:hover{
+    text-decoration: underline;
+}
+nav{
+    border-top:2px solid #fff;
+    text-transform: uppercase;
+
+    height: 60px;
+    background-color: rgb(171, 40, 73);
+    color: #fff;
+    opacity: 0.8;
+
+}
+nav:hover{
+    opacity: 1;
+    transition: 0.3s;
+}
+nav > ul{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+nav > ul >li{
+    flex-grow: 1;
+}
+nav > ul >li:nth-child(3)>i{
+    margin-left: 5%;
+
+}
