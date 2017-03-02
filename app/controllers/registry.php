@@ -2,9 +2,9 @@
 
 namespace X\App\Controllers;
 
-use \X\App\Controllers;
+use X\Sys\Controller;
 
-class Registry extends Controllers{
+class Registry extends Controller{
 
     public function __construct($params){
     parent::__construct($params);
@@ -22,5 +22,10 @@ class Registry extends Controllers{
         $this->view->__construct($this->dataView,$this->dataTable);
         $this->view->show();
 
+    }
+    function adduser(){
+        $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
+        $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
+        $username = filter_input(INPUT_POST,'email',FILTER_SANITIZE_ENCODED);
     }
 }
