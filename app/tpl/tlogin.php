@@ -2,7 +2,7 @@
 <body>
     <nav>
         <ul>
-            <li><a href="<?= APP_W.'app/tpl/tregistry.php'; ?>"<h3>Sign Up!</h3></li>
+            <li><a href="<?= APP_W.'app/tpl/tregister.php'; ?>"<h3>Sign Up!</h3></li>
             <li><h1>Sign In!</h1></li>
             <li>
                 <i class="fa fa-facebook" aria-hidden="true"></i>
