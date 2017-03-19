@@ -7,7 +7,7 @@
 		"driver":"mysql",
 		"dbhost":"localhost",
 		"dbuser":"root",
-		"dbpass":"linuxlinux",
+		"dbpass":"root",
 		"dbname":"storypub"
 	}
 

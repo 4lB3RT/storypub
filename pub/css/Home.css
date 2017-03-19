@@ -1,4 +1,19 @@
 img{
     width:50%;
-
+    box-shadow: 3px 3px 3px black;
+    cursor: pointer;
+}
+h2{
+    color: #fff;
+    cursor: pointer;
+}
+section{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    position: absolute;
+    height:100%;
+}
+section > div > div:nth-child(2){
+    margin-top: 5%;
 }

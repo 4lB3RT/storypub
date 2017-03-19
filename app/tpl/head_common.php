@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title><?= $this->page;?></title>
 	<link rel="stylesheet" href="<?= APP_W.'pub/css/bootstrap.min.css'; ?>">
+    <link rel="stylesheet" href="<?= APP_W.'pub/css/hover.css'; ?>">
     <link rel="stylesheet" href="<?= APP_W.'pub/css/site.css'; ?>">
     <link rel="stylesheet" href="<?= APP_W.'pub/css/'.$this->page; ?>.css">
     <link rel="stylesheet" href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,6 +14,6 @@
 </head>
 <body>
 <header>
-        <img id="logo" src="<?= APP_W.'pub/img/logo.png'; ?>">
+        <h1>HistoryPub</h1>
 </header>
 </body>
