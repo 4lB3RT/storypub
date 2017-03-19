@@ -14,7 +14,7 @@
 </nav>
 <section class="text-center">
     <div id="msg"></div>
-    <form method="POST">
+    <form method="POST" action="index/register/adduser">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" name="email" id="Email1" placeholder="Email" required>
@@ -31,7 +31,7 @@
             <label for="exampleInputPassword1">Username</label>
             <input type="text" class="form-control" name="username" id="Username" placeholder="Username" required>
         </div>
-        <button type="button" id="sign_up" class="btn btn-success">Sign UP</button>
+        <button type="submit" id="" class="btn btn-success">Sign UP</button>
     </form>
 
 </section>

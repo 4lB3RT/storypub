@@ -10,7 +10,7 @@ $(function () {
 
         if(email != '' && pass != ''&& pass_confirm != ''&& username != ''){
 
-            //encrypting value of variable with md5
+            //encrypting value with md5
             email = md5(email);
             pass = md5(pass);
             pass_confirm = md5(pass_confirm);
@@ -21,11 +21,11 @@ $(function () {
                 var dataString='email='+email;
                 $.ajax({
                     type: "POST",
-                    url: "app/controllers/register.php/adduser",
+                    url: '/register/adduser',
                     data:dataString,
                     success: function(data) {
-                        dat=JSON.parse(data);
-                        $("#msg").html("<h3>"+dat.msg+"</h3>");
+                        var data=JSON.parse(data);
+                        $("#msg").html("<h3>"+data.msg+"</h3>");
                     }
                 })
 
