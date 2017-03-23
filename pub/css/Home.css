@@ -13,7 +13,39 @@ section{
     justify-content: center;
     position: absolute;
     height:100%;
+    width: 100%;
 }
 section > div > div:nth-child(2){
     margin-top: 5%;
+}
+.btn-home-registry{
+    background-color: transparent;
+    border: 2px solid #1B733C;
+    transition:0.5s;
+    opacity: 0.7;
+    width:250px;
+    border-top-left-radius: 80px;
+    border-bottom-right-radius: 80px;
+    box-shadow: 2px 2px 50px black;
+}
+.btn-home-registry:hover{
+    background-color:#1B733C ;
+    opacity: 1;
+    border-color: #1B733C;
+}
+
+.btn-home-login{
+    background-color: transparent;
+    border: 2px solid #1B733C;
+    transition:0.5s;
+    opacity: 0.7;
+    width: 250px;
+    border-top-right-radius: 80px;
+    border-bottom-left-radius: 80px;
+    box-shadow: 2px 2px 50px black;
+}
+.btn-home-login:hover{
+    background-color:#1B733C ;
+    opacity: 1;
+    border-color: #1B733C;
 }

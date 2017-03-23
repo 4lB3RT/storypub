@@ -14,6 +14,22 @@
 </head>
 <body>
 <header>
-        <h1>HistoryPub</h1>
+    <div class="row text-center">
+        <div class="col-md-4 col-md-offset-4">
+            <h1>HistoryPub</h1>
+        </div>
+        <div class="col-md-4">
+            <ul>
+                <li>
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
 </header>
 </body>
