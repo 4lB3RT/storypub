@@ -42,7 +42,7 @@
 		 * 
 		 * */
 		static function getFileContAct(){
-			self::$controller=(self::$controller!="")?self::$controller:'register';
+			self::$controller=(self::$controller!="")?self::$controller:'home';
 			self::$action=(self::$action!="")?self::$action:'home';
 			//trobar controladors
 			$filename=strtolower(self::$controller).'.php';

@@ -27,10 +27,10 @@ class Register extends Controller{
     function adduser(){
         $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
         $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
-        $pass_confirm = filter_input(INPUT_POST,'pass_confirm',FILTER_SANITIZE_ENCODED);
-        $username = filter_input(INPUT_POST,'email',FILTER_SANITIZE_ENCODED);
+        $username = filter_input(INPUT_POST,'username',FILTER_SANITIZE_ENCODED);
+        $roles = filter_input(INPUT_POST,'roles',FILTER_SANITIZE_ENCODED);
 
-        $resul = $this->model->insert_user($email,$pass,$pass_confirm,$username);
+        $resul = $this->model->insert_user($email,$pass,$roles,$username);
 
         if($resul){
             $this->ajax(array('msg'=>'Success'));

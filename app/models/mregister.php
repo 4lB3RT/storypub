@@ -17,17 +17,17 @@ class mRegister extends Model
         parent::__construct();
     }
 
-    public function insert_user($email,$pass,$pass_confirm,$username){
+    public function insert_user($email,$pass,$roles,$username){
 
-        $this->query("SELECT COUNT email FROM users WHERE email =:email");
+        $this->query("SELECT COUNT(email) FROM users WHERE email =:email");
         $this->bind(":email",$email);
         $this->execute();
         $resul = $this->rowCount();
         if($resul < 1){
-            $this->query("INSERT INTO users(email,pass,confirm_pass,username) VALUES(:email,:pass,:pass_confirm,:username");
+            $this->query("INSERT INTO users(roles,email,passwd,username) VALUES(:roles,:email,:pass,:username");
             $this->bind(":email",$email);
             $this->bind(":pass",$pass);
-            $this->bind(":pass_confirm",$pass_confirm);
+            $this->bind(":roles:",$roles);
             $this->bind(":username",$username);
             $this->execute();
             return true;

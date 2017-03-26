@@ -16,14 +16,14 @@
 <header>
     <div class="row text-center">
         <div class="col-md-4 col-md-offset-4">
-            <h1>HistoryPub</h1>
+            <a href="home"><h1>HistoryPub</h1></a>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 ul-rss">
             <ul>
                 <li>
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                    <a href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://www.twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                 </li>
             </ul>
         </div>

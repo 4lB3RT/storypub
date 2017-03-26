@@ -18,4 +18,18 @@ class mLogin extends Model
 
     }
 
+    function login($email,$pass){
+
+        $this->query("SELECT * FROM users WHERE email=:email && password=:pass");
+        $this->bind(":eamil",$email);
+        $this->bind(":pass",$pass);
+        $this->execute();
+        $resul = $this->rowCount();
+
+        if($resul>1){
+            return true;
+        }
+
+        return false;
+    }
 }

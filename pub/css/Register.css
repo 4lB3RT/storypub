@@ -4,8 +4,6 @@ section{
     font-size: 18px;
 }
 .btn{
-    color: #fff;
-    font-size: 20px;
     background-color: transparent;
     border: 2px solid #1B733C;
     transition:0.5s;

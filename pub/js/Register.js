@@ -1,4 +1,4 @@
-$(function () {
+$(document).ready(function(){
 
     $("#sign_up").click(function () {
 
@@ -7,18 +7,23 @@ $(function () {
         var pass = $(":input[name=pass]").val();
         var pass_confirm = $(":input[name=pass_confirm]").val();
         var username = $(":input[name=username]").val();
+        var Roles = $(":input[name=Roles]").val();
 
         if(email != '' && pass != ''&& pass_confirm != ''&& username != ''){
 
             //encrypting value with md5
-            email = md5(email);
             pass = md5(pass);
             pass_confirm = md5(pass_confirm);
-            username = md5(username);
 
             //Check if pass are identical
             if(pass === pass_confirm){
-                var dataString='email='+email;
+                var dataString = {
+                    email:email,
+                    pass:pass,
+                    pass_confirm:pass_confirm,
+                    username:username,
+                    roles:Roles
+                };
                 $.ajax({
                     type: "POST",
                     url: '/register/adduser',

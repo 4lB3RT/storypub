@@ -30,4 +30,29 @@ class Login extends Controller
         $this->view->show();
 
     }
+
+    function login(){
+
+        $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
+        $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
+
+        //if is empty email or password redirect to login again
+        if(empty($email) || empty($pass)){
+            header("Location:/login");
+        }
+
+        //testing login
+        $result = $this->model->login($email,$pass);
+
+        if($result){
+            $_SESSION["user"];
+        }else{
+            header("Location:/login");
+        }
+
+
+
+
+
+    }
 }

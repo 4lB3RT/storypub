@@ -26,6 +26,16 @@
                     <label for="exampleInputPassword1">Username</label>
                     <input type="text" class="form-control" name="username" id="Username" placeholder="Username" required>
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Roles</label>
+                    <select class="form-control" name="Roles" id="Roles" required>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
                 <button type="button" id="sign_up" class="btn">Sign UP</button>
             </form>
         </div>

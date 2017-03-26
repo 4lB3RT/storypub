@@ -1,7 +1,11 @@
-var script=document.createElement('script');
-script.type='text/javascript';
-script.src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js';
-
 $(document).ready(function(){
-        alert('the DOM is ready');
-    });
+
+    $("#login").click(function () {
+        var pass = $(":input[name=pass]").val();
+        var pass = md5(pass);
+        $("input[name=pass]").val(pass);
+        alert(pass);
+        $("#form-login").submit();
+    })
+
+})

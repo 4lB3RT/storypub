@@ -19,6 +19,7 @@ section > div > div:nth-child(2){
     margin-top: 5%;
 }
 .btn-home-registry{
+    color: #1B733C;
     background-color: transparent;
     border: 2px solid #1B733C;
     transition:0.5s;
@@ -32,9 +33,11 @@ section > div > div:nth-child(2){
     background-color:#1B733C ;
     opacity: 1;
     border-color: #1B733C;
+    color: #fff;
 }
 
 .btn-home-login{
+    color: #1B733C;
     background-color: transparent;
     border: 2px solid #1B733C;
     transition:0.5s;
@@ -45,6 +48,7 @@ section > div > div:nth-child(2){
     box-shadow: 2px 2px 50px black;
 }
 .btn-home-login:hover{
+    color: #fff;
     background-color:#1B733C ;
     opacity: 1;
     border-color: #1B733C;
