@@ -10,6 +10,7 @@ namespace X\App\Models;
 
 
 use X\Sys\Model;
+use X\Sys\Session;
 
 class mLogin extends Model
 {
@@ -20,14 +21,14 @@ class mLogin extends Model
 
     function login($email,$pass){
 
-        $this->query("SELECT * FROM users WHERE email=:email && password=:pass");
+        $this->query("SELECT * FROM users WHERE email=:email AND passwd=:pass;");
         $this->bind(":eamil",$email);
         $this->bind(":pass",$pass);
-        $this->execute();
-        $resul = $this->rowCount();
+        $resul = $this->execute();
+        $resul = $this->resultset();
 
         if($resul>1){
-            return true;
+            return $resul;
         }
 
         return false;

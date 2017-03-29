@@ -45,7 +45,7 @@ class Login extends Controller
         $result = $this->model->login($email,$pass);
 
         if($result){
-            $_SESSION["user"];
+            $_SESSION["user"] = $result;
         }else{
             header("Location:/login");
         }
