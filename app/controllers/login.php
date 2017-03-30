@@ -10,6 +10,7 @@ namespace X\App\Controllers;
 
 
 use X\Sys\Controller;
+use X\Sys\Session;
 
 class Login extends Controller
 {
@@ -45,11 +46,12 @@ class Login extends Controller
         $result = $this->model->login($email,$pass);
 
         if($result){
-            $_SESSION["user"] = $result;
+            Session::set('user',$result);
+            $this->addData($result);
+            $this->view = new \X\App\Views\vHome($this->dataView,$this->dataTable);
         }else{
             header("Location:/login");
         }
-
 
 
 
