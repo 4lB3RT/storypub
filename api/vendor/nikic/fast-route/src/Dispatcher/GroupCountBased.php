@@ -1,19 +1,19 @@
 <?php
 
-namespace FastRoute\Dispatcher;
+namespace Fast\Dispatcher;
 
 class GroupCountBased extends RegexBasedAbstract {
     public function __construct($data) {
-        list($this->staticRouteMap, $this->variableRouteData) = $data;
+        list($this->staticMap, $this->variableData) = $data;
     }
 
-    protected function dispatchVariableRoute($routeData, $uri) {
-        foreach ($routeData as $data) {
+    protected function dispatchVariable($Data, $uri) {
+        foreach ($Data as $data) {
             if (!preg_match($data['regex'], $uri, $matches)) {
                 continue;
             }
 
-            list($handler, $varNames) = $data['routeMap'][count($matches)];
+            list($handler, $varNames) = $data['Map'][count($matches)];
 
             $vars = [];
             $i = 0;

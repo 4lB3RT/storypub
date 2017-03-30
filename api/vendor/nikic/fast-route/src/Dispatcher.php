@@ -1,6 +1,6 @@
 <?php
 
-namespace FastRoute;
+namespace Fast;
 
 interface Dispatcher {
     const NOT_FOUND = 0;

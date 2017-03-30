@@ -1,36 +1,36 @@
 <?php
 
-namespace FastRoute;
+namespace Fast;
 
-interface RouteParser {
+interface Parser {
     /**
-     * Parses a route string into multiple route data arrays.
+     * Parses a  string into multiple  data arrays.
      *
      * The expected output is defined using an example:
      *
-     * For the route string "/fixedRoutePart/{varName}[/moreFixed/{varName2:\d+}]", if {varName} is interpreted as
-     * a placeholder and [...] is interpreted as an optional route part, the expected result is:
+     * For the  string "/fixedPart/{varName}[/moreFixed/{varName2:\d+}]", if {varName} is interpreted as
+     * a placeholder and [...] is interpreted as an optional  part, the expected result is:
      *
      * [
-     *     // first route: without optional part
+     *     // first : without optional part
      *     [
-     *         "/fixedRoutePart/",
+     *         "/fixedPart/",
      *         ["varName", "[^/]+"],
      *     ],
-     *     // second route: with optional part
+     *     // second : with optional part
      *     [
-     *         "/fixedRoutePart/",
+     *         "/fixedPart/",
      *         ["varName", "[^/]+"],
      *         "/moreFixed/",
      *         ["varName2", [0-9]+"],
      *     ],
      * ]
      *
-     * Here one route string was converted into two route data arrays.
+     * Here one  string was converted into two  data arrays.
      *
-     * @param string $route Route string to parse
+     * @param string $  string to parse
      * 
-     * @return mixed[][] Array of route data arrays
+     * @return mixed[][] Array of  data arrays
      */
-    public function parse($route);
+    public function parse($);
 }

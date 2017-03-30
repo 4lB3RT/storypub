@@ -47,8 +47,7 @@ class Login extends Controller
 
         if($result){
             Session::set('user',$result);
-            $this->addData($result);
-            $this->view = new \X\App\Views\vHome($this->dataView,$this->dataTable);
+           header("Location: /dashboard");
         }else{
             header("Location:/login");
         }

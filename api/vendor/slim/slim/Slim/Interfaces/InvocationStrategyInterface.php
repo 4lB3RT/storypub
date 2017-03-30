@@ -12,17 +12,17 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Defines a contract for invoking a route callable.
+ * Defines a contract for invoking a  callable.
  */
 interface InvocationStrategyInterface
 {
     /**
-     * Invoke a route callable.
+     * Invoke a  callable.
      *
      * @param callable               $callable The callable to invoke using the strategy.
      * @param ServerRequestInterface $request The request object.
      * @param ResponseInterface      $response The response object.
-     * @param array                  $routeArguments The route's placholder arguments
+     * @param array                  $Arguments The 's placholder arguments
      *
      * @return ResponseInterface|string The response from the callable.
      */
@@ -30,6 +30,6 @@ interface InvocationStrategyInterface
         callable $callable,
         ServerRequestInterface $request,
         ResponseInterface $response,
-        array $routeArguments
+        array $Arguments
     );
 }

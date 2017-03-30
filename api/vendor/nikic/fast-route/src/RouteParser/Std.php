@@ -1,16 +1,16 @@
 <?php
 
-namespace FastRoute\RouteParser;
+namespace Fast\Parser;
 
-use FastRoute\BadRouteException;
-use FastRoute\RouteParser;
+use Fast\BadException;
+use Fast\Parser;
 
 /**
- * Parses route strings of the following form:
+ * Parses  strings of the following form:
  *
  * "/user/{name}[/{id:[0-9]+}]"
  */
-class Std implements RouteParser {
+class Std implements Parser {
     const VARIABLE_REGEX = <<<'REGEX'
 \{
     \s* ([a-zA-Z_][a-zA-Z0-9_-]*) \s*
@@ -21,61 +21,61 @@ class Std implements RouteParser {
 REGEX;
     const DEFAULT_DISPATCH_REGEX = '[^/]+';
 
-    public function parse($route) {
-        $routeWithoutClosingOptionals = rtrim($route, ']');
-        $numOptionals = strlen($route) - strlen($routeWithoutClosingOptionals);
+    public function parse($) {
+        $WithoutClosingOptionals = rtrim($, ']');
+        $numOptionals = strlen($) - strlen($WithoutClosingOptionals);
 
         // Split on [ while skipping placeholders
-        $segments = preg_split('~' . self::VARIABLE_REGEX . '(*SKIP)(*F) | \[~x', $routeWithoutClosingOptionals);
+        $segments = preg_split('~' . self::VARIABLE_REGEX . '(*SKIP)(*F) | \[~x', $WithoutClosingOptionals);
         if ($numOptionals !== count($segments) - 1) {
-            // If there are any ] in the middle of the route, throw a more specific error message
-            if (preg_match('~' . self::VARIABLE_REGEX . '(*SKIP)(*F) | \]~x', $routeWithoutClosingOptionals)) {
-                throw new BadRouteException("Optional segments can only occur at the end of a route");
+            // If there are any ] in the middle of the , throw a more specific error message
+            if (preg_match('~' . self::VARIABLE_REGEX . '(*SKIP)(*F) | \]~x', $WithoutClosingOptionals)) {
+                throw new BadException("Optional segments can only occur at the end of a ");
             }
-            throw new BadRouteException("Number of opening '[' and closing ']' does not match");
+            throw new BadException("Number of opening '[' and closing ']' does not match");
         }
 
-        $currentRoute = '';
-        $routeDatas = [];
+        $current = '';
+        $Datas = [];
         foreach ($segments as $n => $segment) {
             if ($segment === '' && $n !== 0) {
-                throw new BadRouteException("Empty optional part");
+                throw new BadException("Empty optional part");
             }
 
-            $currentRoute .= $segment;
-            $routeDatas[] = $this->parsePlaceholders($currentRoute);
+            $current .= $segment;
+            $Datas[] = $this->parsePlaceholders($current);
         }
-        return $routeDatas;
+        return $Datas;
     }
 
     /**
-     * Parses a route string that does not contain optional segments.
+     * Parses a  string that does not contain optional segments.
      */
-    private function parsePlaceholders($route) {
+    private function parsePlaceholders($) {
         if (!preg_match_all(
-            '~' . self::VARIABLE_REGEX . '~x', $route, $matches,
+            '~' . self::VARIABLE_REGEX . '~x', $, $matches,
             PREG_OFFSET_CAPTURE | PREG_SET_ORDER
         )) {
-            return [$route];
+            return [$];
         }
 
         $offset = 0;
-        $routeData = [];
+        $Data = [];
         foreach ($matches as $set) {
             if ($set[0][1] > $offset) {
-                $routeData[] = substr($route, $offset, $set[0][1] - $offset);
+                $Data[] = substr($, $offset, $set[0][1] - $offset);
             }
-            $routeData[] = [
+            $Data[] = [
                 $set[1][0],
                 isset($set[2]) ? trim($set[2][0]) : self::DEFAULT_DISPATCH_REGEX
             ];
             $offset = $set[0][1] + strlen($set[0][0]);
         }
 
-        if ($offset != strlen($route)) {
-            $routeData[] = substr($route, $offset);
+        if ($offset != strlen($)) {
+            $Data[] = substr($, $offset);
         }
 
-        return $routeData;
+        return $Data;
     }
 }

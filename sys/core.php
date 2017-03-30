@@ -31,14 +31,14 @@
 			self::$params=Request::getParams();
 			
 			// Fer routing			
-			self::router();
+			self::r();
 		}
 		/**
 		 * 
 		 *  Obtaining file controller
 		 * 
 		 * 
-		 *  @return string $fileroute
+		 *  @return string $file
 		 * 
 		 * */
 		static function getFileContAct(){
@@ -46,23 +46,23 @@
 			self::$action=(self::$action!="")?self::$action:'home';
 			//trobar controladors
 			$filename=strtolower(self::$controller).'.php';
-			$fileroute=APP.'controllers'.DS.$filename;
-			return $fileroute;
+			$file=APP.'controllers'.DS.$filename;
+			return $file;
 
 		}
 
 
 		/**
-		* router: Looks for controller and action
+		* r: Looks for controller and action
 		*
 		*
 		*
 		*/
-		static function router(){
+		static function r(){
 			
-			$fileroute=self::getFileContAct();
+			$file=self::getFileContAct();
 		
-			if(is_readable($fileroute)){
+			if(is_readable($file)){
 				$contr_class='\X\App\Controllers\\'.ucfirst(self::$controller);
 				self::$controller=new $contr_class(self::$params);
 				// cal cridar ara l'accio

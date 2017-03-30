@@ -1,25 +1,25 @@
 <?php
 
-namespace FastRoute\DataGenerator;
+namespace Fast\DataGenerator;
 
 class MarkBased extends RegexBasedAbstract {
     protected function getApproxChunkSize() {
         return 30;
     }
 
-    protected function processChunk($regexToRoutesMap) {
-        $routeMap = [];
+    protected function processChunk($regexTosMap) {
+        $Map = [];
         $regexes = [];
         $markName = 'a';
-        foreach ($regexToRoutesMap as $regex => $route) {
+        foreach ($regexTosMap as $regex => $) {
             $regexes[] = $regex . '(*MARK:' . $markName . ')';
-            $routeMap[$markName] = [$route->handler, $route->variables];
+            $Map[$markName] = [$->handler, $->variables];
 
             ++$markName;
         }
 
         $regex = '~^(?|' . implode('|', $regexes) . ')$~';
-        return ['regex' => $regex, 'routeMap' => $routeMap];
+        return ['regex' => $regex, 'Map' => $Map];
     }
 }
 

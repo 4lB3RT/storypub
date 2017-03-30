@@ -1,10 +1,10 @@
 <?php
 
-namespace FastRoute;
+namespace Fast;
 
-class RouteCollectorTest extends \PHPUnit_Framework_TestCase {
+class CollectorTest extends \PHPUnit_Framework_TestCase {
     public function testShortcuts() {
-        $r = new DummyRouteCollector();
+        $r = new DummyCollector();
 
         $r->delete('/delete', 'delete');
         $r->get('/get', 'get');
@@ -22,11 +22,11 @@ class RouteCollectorTest extends \PHPUnit_Framework_TestCase {
             ['PUT', '/put', 'put'],
         ];
 
-        $this->assertSame($expected, $r->routes);
+        $this->assertSame($expected, $r->s);
     }
 
     public function testGroups() {
-        $r = new DummyRouteCollector();
+        $r = new DummyCollector();
 
         $r->delete('/delete', 'delete');
         $r->get('/get', 'get');
@@ -35,7 +35,7 @@ class RouteCollectorTest extends \PHPUnit_Framework_TestCase {
         $r->post('/post', 'post');
         $r->put('/put', 'put');
 
-        $r->addGroup('/group-one', function (DummyRouteCollector $r) {
+        $r->addGroup('/group-one', function (DummyCollector $r) {
             $r->delete('/delete', 'delete');
             $r->get('/get', 'get');
             $r->head('/head', 'head');
@@ -43,7 +43,7 @@ class RouteCollectorTest extends \PHPUnit_Framework_TestCase {
             $r->post('/post', 'post');
             $r->put('/put', 'put');
 
-            $r->addGroup('/group-two', function (DummyRouteCollector $r) {
+            $r->addGroup('/group-two', function (DummyCollector $r) {
                 $r->delete('/delete', 'delete');
                 $r->get('/get', 'get');
                 $r->head('/head', 'head');
@@ -53,10 +53,10 @@ class RouteCollectorTest extends \PHPUnit_Framework_TestCase {
             });
         });
 
-        $r->addGroup('/admin', function (DummyRouteCollector $r) {
+        $r->addGroup('/admin', function (DummyCollector $r) {
             $r->get('-some-info', 'admin-some-info');
         });
-        $r->addGroup('/admin-', function (DummyRouteCollector $r) {
+        $r->addGroup('/admin-', function (DummyCollector $r) {
             $r->get('more-info', 'admin-more-info');
         });
 
@@ -83,15 +83,15 @@ class RouteCollectorTest extends \PHPUnit_Framework_TestCase {
             ['GET', '/admin-more-info', 'admin-more-info'],
         ];
 
-        $this->assertSame($expected, $r->routes);
+        $this->assertSame($expected, $r->s);
     }
 }
 
-class DummyRouteCollector extends RouteCollector {
-    public $routes = [];
+class DummyCollector extends Collector {
+    public $s = [];
     public function __construct() {}
-    public function addRoute($method, $route, $handler) {
-        $route = $this->currentGroupPrefix . $route;
-        $this->routes[] = [$method, $route, $handler];
+    public function add($method, $, $handler) {
+        $ = $this->currentGroupPrefix . $;
+        $this->s[] = [$method, $, $handler];
     }
 }

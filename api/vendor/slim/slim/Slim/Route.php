@@ -16,40 +16,40 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Exception\SlimException;
 use Slim\Handlers\Strategies\RequestResponse;
 use Slim\Interfaces\InvocationStrategyInterface;
-use Slim\Interfaces\RouteInterface;
+use Slim\Interfaces\Interface;
 
 /**
- * Route
+ *
  */
-class Route extends Routable implements RouteInterface
+class  extends Routable implements Interface
 {
     use MiddlewareAwareTrait;
 
     /**
-     * HTTP methods supported by this route
+     * HTTP methods supported by this
      *
      * @var string[]
      */
     protected $methods = [];
 
     /**
-     * Route identifier
+     *  identifier
      *
      * @var string
      */
     protected $identifier;
 
     /**
-     * Route name
+     *  name
      *
      * @var null|string
      */
     protected $name;
 
     /**
-     * Parent route groups
+     * Parent  groups
      *
-     * @var RouteGroup[]
+     * @var Group[]
      */
     protected $groups;
 
@@ -65,7 +65,7 @@ class Route extends Routable implements RouteInterface
     protected $outputBuffering = 'append';
 
     /**
-     * Route parameters
+     *  parameters
      *
      * @var array
      */
@@ -79,13 +79,13 @@ class Route extends Routable implements RouteInterface
     protected $callable;
 
     /**
-     * Create new route
+     * Create new
      *
-     * @param string|string[]   $methods The route HTTP methods
-     * @param string            $pattern The route pattern
-     * @param callable          $callable The route callable
-     * @param RouteGroup[]      $groups The parent route groups
-     * @param int               $identifier The route identifier
+     * @param string|string[]   $methods The  HTTP methods
+     * @param string            $pattern The  pattern
+     * @param callable          $callable The  callable
+     * @param Group[]      $groups The parent  groups
+     * @param int               $identifier The  identifier
      */
     public function __construct($methods, $pattern, $callable, $groups = [], $identifier = 0)
     {
@@ -93,11 +93,11 @@ class Route extends Routable implements RouteInterface
         $this->pattern  = $pattern;
         $this->callable = $callable;
         $this->groups   = $groups;
-        $this->identifier = 'route' . $identifier;
+        $this->identifier = '' . $identifier;
     }
 
     /**
-     * Finalize the route in preparation for dispatching
+     * Finalize the  in preparation for dispatching
      */
     public function finalize()
     {
@@ -120,7 +120,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Get route callable
+     * Get  callable
      *
      * @return callable
      */
@@ -130,7 +130,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * This method enables you to override the Route's callable
+     * This method enables you to override the 's callable
      *
      * @param string|\Closure $callable
      */
@@ -140,7 +140,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Get route methods
+     * Get  methods
      *
      * @return string[]
      */
@@ -150,9 +150,9 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Get parent route groups
+     * Get parent  groups
      *
-     * @return RouteGroup[]
+     * @return Group[]
      */
     public function getGroups()
     {
@@ -160,7 +160,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Get route name
+     * Get  name
      *
      * @return null|string
      */
@@ -170,7 +170,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Get route identifier
+     * Get  identifier
      *
      * @return string
      */
@@ -207,25 +207,25 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Set route name
+     * Set  name
      *
      * @param string $name
      *
      * @return self
      *
-     * @throws InvalidArgumentException if the route name is not a string
+     * @throws InvalidArgumentException if the  name is not a string
      */
     public function setName($name)
     {
         if (!is_string($name)) {
-            throw new InvalidArgumentException('Route name must be a string');
+            throw new InvalidArgumentException(' name must be a string');
         }
         $this->name = $name;
         return $this;
     }
 
     /**
-     * Set a route argument
+     * Set a  argument
      *
      * @param string $name
      * @param string $value
@@ -239,7 +239,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Replace route arguments
+     * Replace  arguments
      *
      * @param array $arguments
      *
@@ -252,7 +252,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Retrieve route arguments
+     * Retrieve  arguments
      *
      * @return array
      */
@@ -262,7 +262,7 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Retrieve a specific route argument
+     * Retrieve a specific  argument
      *
      * @param string $name
      * @param string|null $default
@@ -278,11 +278,11 @@ class Route extends Routable implements RouteInterface
     }
 
     /********************************************************************************
-     * Route Runner
+     *  Runner
      *******************************************************************************/
 
     /**
-     * Prepare the route for use
+     * Prepare the  for use
      *
      * @param ServerRequestInterface $request
      * @param array $arguments
@@ -296,9 +296,9 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Run route
+     * Run
      *
-     * This method traverses the middleware stack, including the route's callable
+     * This method traverses the middleware stack, including the 's callable
      * and captures the resultant HTTP response object. It then sends the response
      * back to the Application.
      *
@@ -309,7 +309,7 @@ class Route extends Routable implements RouteInterface
      */
     public function run(ServerRequestInterface $request, ResponseInterface $response)
     {
-        // Finalise route now that we are about to run it
+        // Finalise  now that we are about to run it
         $this->finalize();
 
         // Traverse middleware stack and fetch updated response
@@ -317,16 +317,16 @@ class Route extends Routable implements RouteInterface
     }
 
     /**
-     * Dispatch route callable against current Request and Response objects
+     * Dispatch  callable against current Request and Response objects
      *
-     * This method invokes the route object's callable. If middleware is
-     * registered for the route, each callable middleware is invoked in
+     * This method invokes the  object's callable. If middleware is
+     * registered for the , each callable middleware is invoked in
      * the order specified.
      *
      * @param ServerRequestInterface $request  The current Request object
      * @param ResponseInterface      $response The current Response object
      * @return \Psr\Http\Message\ResponseInterface
-     * @throws \Exception  if the route callable throws an exception
+     * @throws \Exception  if the  callable throws an exception
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
@@ -335,7 +335,7 @@ class Route extends Routable implements RouteInterface
         /** @var InvocationStrategyInterface $handler */
         $handler = isset($this->container) ? $this->container->get('foundHandler') : new RequestResponse();
 
-        // invoke route callable
+        // invoke  callable
         if ($this->outputBuffering === false) {
             $newResponse = $handler($this->callable, $request, $response, $this->arguments);
         } else {
@@ -355,10 +355,10 @@ class Route extends Routable implements RouteInterface
         }
 
         if ($newResponse instanceof ResponseInterface) {
-            // if route callback returns a ResponseInterface, then use it
+            // if  callback returns a ResponseInterface, then use it
             $response = $newResponse;
         } elseif (is_string($newResponse)) {
-            // if route callback returns a string, then append it to the response
+            // if  callback returns a string, then append it to the response
             if ($response->getBody()->isWritable()) {
                 $response->getBody()->write($newResponse);
             }

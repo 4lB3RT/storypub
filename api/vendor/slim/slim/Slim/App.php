@@ -18,7 +18,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Container\ContainerInterface;
-use FastRoute\Dispatcher;
+use Fast\Dispatcher;
 use Slim\Exception\SlimException;
 use Slim\Exception\MethodNotAllowedException;
 use Slim\Exception\NotFoundException;
@@ -27,9 +27,9 @@ use Slim\Http\Headers;
 use Slim\Http\Body;
 use Slim\Http\Request;
 use Slim\Interfaces\Http\EnvironmentInterface;
-use Slim\Interfaces\RouteGroupInterface;
-use Slim\Interfaces\RouteInterface;
-use Slim\Interfaces\RouterInterface;
+use Slim\Interfaces\GroupInterface;
+use Slim\Interfaces\Interface;
+use Slim\Interfaces\rInterface;
 
 /**
  * App
@@ -127,16 +127,16 @@ class App
     }
 
     /********************************************************************************
-     * Router proxy methods
+     * r proxy methods
      *******************************************************************************/
 
     /**
-     * Add GET route
+     * Add GET
      *
-     * @param  string $pattern  The route URI pattern
-     * @param  callable|string  $callable The route callback routine
+     * @param  string $pattern  The  URI pattern
+     * @param  callable|string  $callable The  callback routine
      *
-     * @return \Slim\Interfaces\RouteInterface
+     * @return \Slim\Interfaces\Interface
      */
     public function get($pattern, $callable)
     {
@@ -144,12 +144,12 @@ class App
     }
 
     /**
-     * Add POST route
+     * Add POST
      *
-     * @param  string $pattern  The route URI pattern
-     * @param  callable|string  $callable The route callback routine
+     * @param  string $pattern  The  URI pattern
+     * @param  callable|string  $callable The  callback routine
      *
-     * @return \Slim\Interfaces\RouteInterface
+     * @return \Slim\Interfaces\Interface
      */
     public function post($pattern, $callable)
     {
@@ -157,12 +157,12 @@ class App
     }
 
     /**
-     * Add PUT route
+     * Add PUT
      *
-     * @param  string $pattern  The route URI pattern
-     * @param  callable|string  $callable The route callback routine
+     * @param  string $pattern  The  URI pattern
+     * @param  callable|string  $callable The  callback routine
      *
-     * @return \Slim\Interfaces\RouteInterface
+     * @return \Slim\Interfaces\Interface
      */
     public function put($pattern, $callable)
     {
@@ -170,12 +170,12 @@ class App
     }
 
     /**
-     * Add PATCH route
+     * Add PATCH
      *
-     * @param  string $pattern  The route URI pattern
-     * @param  callable|string  $callable The route callback routine
+     * @param  string $pattern  The  URI pattern
+     * @param  callable|string  $callable The  callback routine
      *
-     * @return \Slim\Interfaces\RouteInterface
+     * @return \Slim\Interfaces\Interface
      */
     public function patch($pattern, $callable)
     {
@@ -183,12 +183,12 @@ class App
     }
 
     /**
-     * Add DELETE route
+     * Add DELETE
      *
-     * @param  string $pattern  The route URI pattern
-     * @param  callable|string  $callable The route callback routine
+     * @param  string $pattern  The  URI pattern
+     * @param  callable|string  $callable The  callback routine
      *
-     * @return \Slim\Interfaces\RouteInterface
+     * @return \Slim\Interfaces\Interface
      */
     public function delete($pattern, $callable)
     {
@@ -196,12 +196,12 @@ class App
     }
 
     /**
-     * Add OPTIONS route
+     * Add OPTIONS
      *
-     * @param  string $pattern  The route URI pattern
-     * @param  callable|string  $callable The route callback routine
+     * @param  string $pattern  The  URI pattern
+     * @param  callable|string  $callable The  callback routine
      *
-     * @return \Slim\Interfaces\RouteInterface
+     * @return \Slim\Interfaces\Interface
      */
     public function options($pattern, $callable)
     {
@@ -209,12 +209,12 @@ class App
     }
 
     /**
-     * Add route for any HTTP method
+     * Add  for any HTTP method
      *
-     * @param  string $pattern  The route URI pattern
-     * @param  callable|string  $callable The route callback routine
+     * @param  string $pattern  The  URI pattern
+     * @param  callable|string  $callable The  callback routine
      *
-     * @return \Slim\Interfaces\RouteInterface
+     * @return \Slim\Interfaces\Interface
      */
     public function any($pattern, $callable)
     {
@@ -222,13 +222,13 @@ class App
     }
 
     /**
-     * Add route with multiple methods
+     * Add  with multiple methods
      *
      * @param  string[] $methods  Numeric array of HTTP method names
-     * @param  string   $pattern  The route URI pattern
-     * @param  callable|string    $callable The route callback routine
+     * @param  string   $pattern  The  URI pattern
+     * @param  callable|string    $callable The  callback routine
      *
-     * @return RouteInterface
+     * @return Interface
      */
     public function map(array $methods, $pattern, $callable)
     {
@@ -236,37 +236,37 @@ class App
             $callable = $callable->bindTo($this->container);
         }
 
-        $route = $this->container->get('router')->map($methods, $pattern, $callable);
-        if (is_callable([$route, 'setContainer'])) {
-            $route->setContainer($this->container);
+        $ = $this->container->get('r')->map($methods, $pattern, $callable);
+        if (is_callable([$, 'setContainer'])) {
+            $->setContainer($this->container);
         }
 
-        if (is_callable([$route, 'setOutputBuffering'])) {
-            $route->setOutputBuffering($this->container->get('settings')['outputBuffering']);
+        if (is_callable([$, 'setOutputBuffering'])) {
+            $->setOutputBuffering($this->container->get('settings')['outputBuffering']);
         }
 
-        return $route;
+        return $;
     }
 
     /**
-     * Route Groups
+     *  Groups
      *
-     * This method accepts a route pattern and a callback. All route
+     * This method accepts a  pattern and a callback. All
      * declarations in the callback will be prepended by the group(s)
      * that it is in.
      *
      * @param string   $pattern
      * @param callable $callable
      *
-     * @return RouteGroupInterface
+     * @return GroupInterface
      */
     public function group($pattern, $callable)
     {
-        /** @var RouteGroup $group */
-        $group = $this->container->get('router')->pushGroup($pattern, $callable);
+        /** @var Group $group */
+        $group = $this->container->get('r')->pushGroup($pattern, $callable);
         $group->setContainer($this->container);
         $group($this);
-        $this->container->get('router')->popGroup();
+        $this->container->get('r')->popGroup();
         return $group;
     }
 
@@ -305,7 +305,7 @@ class App
     }
 
     /**
-     * Pull route info for a request with a bad method to decide whether to
+     * Pull  info for a request with a bad method to decide whether to
      * return a not-found error (default) or a bad-method error, then run
      * the handler for that error, returning the resulting response.
      *
@@ -318,17 +318,17 @@ class App
      */
     protected function processInvalidMethod(ServerRequestInterface $request, ResponseInterface $response)
     {
-        $router = $this->container->get('router');
-        if (is_callable([$request->getUri(), 'getBasePath']) && is_callable([$router, 'setBasePath'])) {
-            $router->setBasePath($request->getUri()->getBasePath());
+        $r = $this->container->get('r');
+        if (is_callable([$request->getUri(), 'getBasePath']) && is_callable([$r, 'setBasePath'])) {
+            $r->setBasePath($request->getUri()->getBasePath());
         }
 
-        $request = $this->dispatchRouterAndPrepareRoute($request, $router);
-        $routeInfo = $request->getAttribute('routeInfo', [RouterInterface::DISPATCH_STATUS => Dispatcher::NOT_FOUND]);
+        $request = $this->dispatchrAndPrepare($request, $r);
+        $Info = $request->getAttribute('Info', [rInterface::DISPATCH_STATUS => Dispatcher::NOT_FOUND]);
 
-        if ($routeInfo[RouterInterface::DISPATCH_STATUS] === Dispatcher::METHOD_NOT_ALLOWED) {
+        if ($Info[rInterface::DISPATCH_STATUS] === Dispatcher::METHOD_NOT_ALLOWED) {
             return $this->handleException(
-                new MethodNotAllowedException($request, $response, $routeInfo[RouterInterface::ALLOWED_METHODS]),
+                new MethodNotAllowedException($request, $response, $Info[rInterface::ALLOWED_METHODS]),
                 $request,
                 $response
             );
@@ -354,15 +354,15 @@ class App
     public function process(ServerRequestInterface $request, ResponseInterface $response)
     {
         // Ensure basePath is set
-        $router = $this->container->get('router');
-        if (is_callable([$request->getUri(), 'getBasePath']) && is_callable([$router, 'setBasePath'])) {
-            $router->setBasePath($request->getUri()->getBasePath());
+        $r = $this->container->get('r');
+        if (is_callable([$request->getUri(), 'getBasePath']) && is_callable([$r, 'setBasePath'])) {
+            $r->setBasePath($request->getUri()->getBasePath());
         }
 
-        // Dispatch the Router first if the setting for this is on
-        if ($this->container->get('settings')['determineRouteBeforeAppMiddleware'] === true) {
-            // Dispatch router (note: you won't be able to alter routes after this)
-            $request = $this->dispatchRouterAndPrepareRoute($request, $router);
+        // Dispatch the r first if the setting for this is on
+        if ($this->container->get('settings')['determineBeforeAppMiddleware'] === true) {
+            // Dispatch r (note: you won't be able to alter s after this)
+            $request = $this->dispatchrAndPrepare($request, $r);
         }
 
         // Traverse middleware stack
@@ -447,8 +447,8 @@ class App
      *
      * This method implements the middleware interface. It receives
      * Request and Response objects, and it returns a Response object
-     * after compiling the routes registered in the Router and dispatching
-     * the Request object to the appropriate Route callback routine.
+     * after compiling the s registered in the r and dispatching
+     * the Request object to the appropriate  callback routine.
      *
      * @param  ServerRequestInterface $request  The most recent Request object
      * @param  ResponseInterface      $response The most recent Response object
@@ -459,28 +459,28 @@ class App
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
-        // Get the route info
-        $routeInfo = $request->getAttribute('routeInfo');
+        // Get the  info
+        $Info = $request->getAttribute('Info');
 
-        /** @var \Slim\Interfaces\RouterInterface $router */
-        $router = $this->container->get('router');
+        /** @var \Slim\Interfaces\rInterface $r */
+        $r = $this->container->get('r');
 
-        // If router hasn't been dispatched or the URI changed then dispatch
-        if (null === $routeInfo || ($routeInfo['request'] !== [$request->getMethod(), (string) $request->getUri()])) {
-            $request = $this->dispatchRouterAndPrepareRoute($request, $router);
-            $routeInfo = $request->getAttribute('routeInfo');
+        // If r hasn't been dispatched or the URI changed then dispatch
+        if (null === $Info || ($Info['request'] !== [$request->getMethod(), (string) $request->getUri()])) {
+            $request = $this->dispatchrAndPrepare($request, $r);
+            $Info = $request->getAttribute('Info');
         }
 
-        if ($routeInfo[0] === Dispatcher::FOUND) {
-            $route = $router->lookupRoute($routeInfo[1]);
-            return $route->run($request, $response);
-        } elseif ($routeInfo[0] === Dispatcher::METHOD_NOT_ALLOWED) {
+        if ($Info[0] === Dispatcher::FOUND) {
+            $ = $r->lookup($Info[1]);
+            return $->run($request, $response);
+        } elseif ($Info[0] === Dispatcher::METHOD_NOT_ALLOWED) {
             if (!$this->container->has('notAllowedHandler')) {
-                throw new MethodNotAllowedException($request, $response, $routeInfo[1]);
+                throw new MethodNotAllowedException($request, $response, $Info[1]);
             }
             /** @var callable $notAllowedHandler */
             $notAllowedHandler = $this->container->get('notAllowedHandler');
-            return $notAllowedHandler($request, $response, $routeInfo[1]);
+            return $notAllowedHandler($request, $response, $Info[1]);
         }
 
         if (!$this->container->has('notFoundHandler')) {
@@ -492,13 +492,13 @@ class App
     }
 
     /**
-     * Perform a sub-request from within an application route
+     * Perform a sub-request from within an application
      *
      * This method allows you to prepare and initiate a sub-request, run within
      * the context of the current request. This WILL NOT issue a remote HTTP
-     * request. Instead, it will route the provided URL, method, headers,
+     * request. Instead, it will  the provided URL, method, headers,
      * cookies, body, and server variables against the set of registered
-     * application routes. The result response object is returned.
+     * application s. The result response object is returned.
      *
      * @param  string            $method      The request method (e.g., GET, POST, PUT, etc.)
      * @param  string            $path        The request URI path
@@ -535,32 +535,32 @@ class App
     }
 
     /**
-     * Dispatch the router to find the route. Prepare the route for use.
+     * Dispatch the r to find the . Prepare the  for use.
      *
      * @param ServerRequestInterface $request
-     * @param RouterInterface        $router
+     * @param rInterface        $r
      * @return ServerRequestInterface
      */
-    protected function dispatchRouterAndPrepareRoute(ServerRequestInterface $request, RouterInterface $router)
+    protected function dispatchrAndPrepare(ServerRequestInterface $request, rInterface $r)
     {
-        $routeInfo = $router->dispatch($request);
+        $Info = $r->dispatch($request);
 
-        if ($routeInfo[0] === Dispatcher::FOUND) {
-            $routeArguments = [];
-            foreach ($routeInfo[2] as $k => $v) {
-                $routeArguments[$k] = urldecode($v);
+        if ($Info[0] === Dispatcher::FOUND) {
+            $Arguments = [];
+            foreach ($Info[2] as $k => $v) {
+                $Arguments[$k] = urldecode($v);
             }
 
-            $route = $router->lookupRoute($routeInfo[1]);
-            $route->prepare($request, $routeArguments);
+            $ = $r->lookup($Info[1]);
+            $->prepare($request, $Arguments);
 
-            // add route to the request's attributes in case a middleware or handler needs access to the route
-            $request = $request->withAttribute('route', $route);
+            // add  to the request's attributes in case a middleware or handler needs access to the
+            $request = $request->withAttribute('', $);
         }
 
-        $routeInfo['request'] = [$request->getMethod(), (string) $request->getUri()];
+        $Info['request'] = [$request->getMethod(), (string) $request->getUri()];
 
-        return $request->withAttribute('routeInfo', $routeInfo);
+        return $request->withAttribute('Info', $Info);
     }
 
     /**

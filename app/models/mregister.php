@@ -19,7 +19,7 @@ class mRegister extends Model
 
     public function insert_user($email,$pass,$roles,$username){
 
-        $this->query("SELECT username FROM users WHERE email =:email;");
+        $this->query("SELECT * FROM users WHERE email =:email;");
         $this->bind(":email",$email);
         $this->execute();
         $resul = $this->rowCount();

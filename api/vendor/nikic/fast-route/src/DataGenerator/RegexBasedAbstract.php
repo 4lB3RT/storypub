@@ -1,39 +1,39 @@
 <?php
 
-namespace FastRoute\DataGenerator;
+namespace Fast\DataGenerator;
 
-use FastRoute\DataGenerator;
-use FastRoute\BadRouteException;
-use FastRoute\Route;
+use Fast\DataGenerator;
+use Fast\BadException;
+use Fast\;
 
 abstract class RegexBasedAbstract implements DataGenerator {
-    protected $staticRoutes = [];
-    protected $methodToRegexToRoutesMap = [];
+    protected $statics = [];
+    protected $methodToRegexTosMap = [];
 
     protected abstract function getApproxChunkSize();
-    protected abstract function processChunk($regexToRoutesMap);
+    protected abstract function processChunk($regexTosMap);
 
-    public function addRoute($httpMethod, $routeData, $handler) {
-        if ($this->isStaticRoute($routeData)) {
-            $this->addStaticRoute($httpMethod, $routeData, $handler);
+    public function add($httpMethod, $Data, $handler) {
+        if ($this->isStatic($Data)) {
+            $this->addStatic($httpMethod, $Data, $handler);
         } else {
-            $this->addVariableRoute($httpMethod, $routeData, $handler);
+            $this->addVariable($httpMethod, $Data, $handler);
         }
     }
 
     public function getData() {
-        if (empty($this->methodToRegexToRoutesMap)) {
-            return [$this->staticRoutes, []];
+        if (empty($this->methodToRegexTosMap)) {
+            return [$this->statics, []];
         }
 
-        return [$this->staticRoutes, $this->generateVariableRouteData()];
+        return [$this->statics, $this->generateVariableData()];
     }
 
-    private function generateVariableRouteData() {
+    private function generateVariableData() {
         $data = [];
-        foreach ($this->methodToRegexToRoutesMap as $method => $regexToRoutesMap) {
-            $chunkSize = $this->computeChunkSize(count($regexToRoutesMap));
-            $chunks = array_chunk($regexToRoutesMap, $chunkSize, true);
+        foreach ($this->methodToRegexTosMap as $method => $regexTosMap) {
+            $chunkSize = $this->computeChunkSize(count($regexTosMap));
+            $chunks = array_chunk($regexTosMap, $chunkSize, true);
             $data[$method] =  array_map([$this, 'processChunk'], $chunks);
         }
         return $data;
@@ -44,53 +44,53 @@ abstract class RegexBasedAbstract implements DataGenerator {
         return ceil($count / $numParts);
     }
 
-    private function isStaticRoute($routeData) {
-        return count($routeData) === 1 && is_string($routeData[0]);
+    private function isStatic($Data) {
+        return count($Data) === 1 && is_string($Data[0]);
     }
 
-    private function addStaticRoute($httpMethod, $routeData, $handler) {
-        $routeStr = $routeData[0];
+    private function addStatic($httpMethod, $Data, $handler) {
+        $Str = $Data[0];
 
-        if (isset($this->staticRoutes[$httpMethod][$routeStr])) {
-            throw new BadRouteException(sprintf(
-                'Cannot register two routes matching "%s" for method "%s"',
-                $routeStr, $httpMethod
+        if (isset($this->statics[$httpMethod][$Str])) {
+            throw new BadException(sprintf(
+                'Cannot register two s matching "%s" for method "%s"',
+                $Str, $httpMethod
             ));
         }
 
-        if (isset($this->methodToRegexToRoutesMap[$httpMethod])) {
-            foreach ($this->methodToRegexToRoutesMap[$httpMethod] as $route) {
-                if ($route->matches($routeStr)) {
-                    throw new BadRouteException(sprintf(
-                        'Static route "%s" is shadowed by previously defined variable route "%s" for method "%s"',
-                        $routeStr, $route->regex, $httpMethod
+        if (isset($this->methodToRegexTosMap[$httpMethod])) {
+            foreach ($this->methodToRegexTosMap[$httpMethod] as $) {
+                if ($->matches($Str)) {
+                    throw new BadException(sprintf(
+                        'Static  "%s" is shadowed by previously defined variable  "%s" for method "%s"',
+                        $Str, $->regex, $httpMethod
                     ));
                 }
             }
         }
 
-        $this->staticRoutes[$httpMethod][$routeStr] = $handler;
+        $this->statics[$httpMethod][$Str] = $handler;
     }
 
-    private function addVariableRoute($httpMethod, $routeData, $handler) {
-        list($regex, $variables) = $this->buildRegexForRoute($routeData);
+    private function addVariable($httpMethod, $Data, $handler) {
+        list($regex, $variables) = $this->buildRegexFor($Data);
 
-        if (isset($this->methodToRegexToRoutesMap[$httpMethod][$regex])) {
-            throw new BadRouteException(sprintf(
-                'Cannot register two routes matching "%s" for method "%s"',
+        if (isset($this->methodToRegexTosMap[$httpMethod][$regex])) {
+            throw new BadException(sprintf(
+                'Cannot register two s matching "%s" for method "%s"',
                 $regex, $httpMethod
             ));
         }
 
-        $this->methodToRegexToRoutesMap[$httpMethod][$regex] = new Route(
+        $this->methodToRegexTosMap[$httpMethod][$regex] = new (
             $httpMethod, $handler, $regex, $variables
         );
     }
 
-    private function buildRegexForRoute($routeData) {
+    private function buildRegexFor($Data) {
         $regex = '';
         $variables = [];
-        foreach ($routeData as $part) {
+        foreach ($Data as $part) {
             if (is_string($part)) {
                 $regex .= preg_quote($part, '~');
                 continue;
@@ -99,13 +99,13 @@ abstract class RegexBasedAbstract implements DataGenerator {
             list($varName, $regexPart) = $part;
 
             if (isset($variables[$varName])) {
-                throw new BadRouteException(sprintf(
+                throw new BadException(sprintf(
                     'Cannot use the same placeholder "%s" twice', $varName
                 ));
             }
 
             if ($this->regexHasCapturingGroups($regexPart)) {
-                throw new BadRouteException(sprintf(
+                throw new BadException(sprintf(
                     'Regex "%s" for parameter "%s" contains a capturing group',
                     $regexPart, $varName
                 ));

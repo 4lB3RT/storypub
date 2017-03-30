@@ -13,16 +13,16 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Route Interface
+ *  Interface
  *
  * @package Slim
  * @since   3.0.0
  */
-interface RouteInterface
+interface Interface
 {
 
     /**
-     * Retrieve a specific route argument
+     * Retrieve a specific  argument
      *
      * @param string $name
      * @param string|null $default
@@ -32,28 +32,28 @@ interface RouteInterface
     public function getArgument($name, $default = null);
 
     /**
-     * Get route arguments
+     * Get  arguments
      *
      * @return string[]
      */
     public function getArguments();
 
     /**
-     * Get route name
+     * Get  name
      *
      * @return null|string
      */
     public function getName();
 
     /**
-     * Get route pattern
+     * Get  pattern
      *
      * @return string
      */
     public function getPattern();
 
     /**
-     * Set a route argument
+     * Set a  argument
      *
      * @param string $name
      * @param string $value
@@ -63,7 +63,7 @@ interface RouteInterface
     public function setArgument($name, $value);
 
     /**
-     * Replace route arguments
+     * Replace  arguments
      *
      * @param string[] $arguments
      *
@@ -72,28 +72,28 @@ interface RouteInterface
     public function setArguments(array $arguments);
 
     /**
-     * Set route name
+     * Set  name
      *
      * @param string $name
      *
      * @return static
-     * @throws InvalidArgumentException if the route name is not a string
+     * @throws InvalidArgumentException if the  name is not a string
      */
     public function setName($name);
 
     /**
      * Add middleware
      *
-     * This method prepends new middleware to the route's middleware stack.
+     * This method prepends new middleware to the 's middleware stack.
      *
      * @param callable|string $callable The callback routine
      *
-     * @return RouteInterface
+     * @return Interface
      */
     public function add($callable);
 
     /**
-     * Prepare the route for use
+     * Prepare the  for use
      *
      * @param ServerRequestInterface $request
      * @param array $arguments
@@ -101,9 +101,9 @@ interface RouteInterface
     public function prepare(ServerRequestInterface $request, array $arguments);
 
     /**
-     * Run route
+     * Run
      *
-     * This method traverses the middleware stack, including the route's callable
+     * This method traverses the middleware stack, including the 's callable
      * and captures the resultant HTTP response object. It then sends the response
      * back to the Application.
      *
@@ -114,10 +114,10 @@ interface RouteInterface
     public function run(ServerRequestInterface $request, ResponseInterface $response);
 
     /**
-     * Dispatch route callable against current Request and Response objects
+     * Dispatch  callable against current Request and Response objects
      *
-     * This method invokes the route object's callable. If middleware is
-     * registered for the route, each callable middleware is invoked in
+     * This method invokes the  object's callable. If middleware is
+     * registered for the , each callable middleware is invoked in
      * the order specified.
      *
      * @param ServerRequestInterface $request  The current Request object

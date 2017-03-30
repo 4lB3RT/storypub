@@ -1,25 +1,25 @@
 <?php
 
-namespace FastRoute\DataGenerator;
+namespace Fast\DataGenerator;
 
 class GroupPosBased extends RegexBasedAbstract {
     protected function getApproxChunkSize() {
         return 10;
     }
 
-    protected function processChunk($regexToRoutesMap) {
-        $routeMap = [];
+    protected function processChunk($regexTosMap) {
+        $Map = [];
         $regexes = [];
         $offset = 1;
-        foreach ($regexToRoutesMap as $regex => $route) {
+        foreach ($regexTosMap as $regex => $) {
             $regexes[] = $regex;
-            $routeMap[$offset] = [$route->handler, $route->variables];
+            $Map[$offset] = [$->handler, $->variables];
 
-            $offset += count($route->variables);
+            $offset += count($->variables);
         }
 
         $regex = '~^(?:' . implode('|', $regexes) . ')$~';
-        return ['regex' => $regex, 'routeMap' => $routeMap];
+        return ['regex' => $regex, 'Map' => $Map];
     }
 }
 

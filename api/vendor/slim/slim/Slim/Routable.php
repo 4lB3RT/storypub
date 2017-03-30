@@ -21,7 +21,7 @@ abstract class Routable
     use CallableResolverAwareTrait;
 
     /**
-     * Route callable
+     *  callable
      *
      * @var callable
      */
@@ -35,14 +35,14 @@ abstract class Routable
     protected $container;
 
     /**
-     * Route middleware
+     *  middleware
      *
      * @var callable[]
      */
     protected $middleware = [];
 
     /**
-     * Route pattern
+     *  pattern
      *
      * @var string
      */
@@ -59,7 +59,7 @@ abstract class Routable
     }
 
     /**
-     * Get the route pattern
+     * Get the  pattern
      *
      * @return string
      */
@@ -95,7 +95,7 @@ abstract class Routable
     }
 
     /**
-     * Set the route pattern
+     * Set the  pattern
      *
      * @param string $newPattern
      */

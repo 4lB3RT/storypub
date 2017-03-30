@@ -83,7 +83,7 @@ class Request extends Message implements ServerRequestInterface
     protected $serverParams;
 
     /**
-     * The request attributes (route segment names and values)
+     * The request attributes ( segment names and values)
      *
      * @var \Slim\Collection
      */

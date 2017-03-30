@@ -1,13 +1,13 @@
 <?php
 
-namespace FastRoute\Dispatcher;
+namespace Fast\Dispatcher;
 
 class GroupPosBasedTest extends DispatcherTest {
     protected function getDispatcherClass() {
-        return 'FastRoute\\Dispatcher\\GroupPosBased';
+        return 'Fast\\Dispatcher\\GroupPosBased';
     }
 
     protected function getDataGeneratorClass() {
-        return 'FastRoute\\DataGenerator\\GroupPosBased';
+        return 'Fast\\DataGenerator\\GroupPosBased';
     }
 }

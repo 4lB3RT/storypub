@@ -1,20 +1,20 @@
 <?php
 
-namespace FastRoute\RouteParser;
+namespace Fast\Parser;
 
 class StdTest extends \PhpUnit_Framework_TestCase {
     /** @dataProvider provideTestParse */
-    public function testParse($routeString, $expectedRouteDatas) {
+    public function testParse($String, $expectedDatas) {
         $parser = new Std();
-        $routeDatas = $parser->parse($routeString);
-        $this->assertSame($expectedRouteDatas, $routeDatas);
+        $Datas = $parser->parse($String);
+        $this->assertSame($expectedDatas, $Datas);
     }
 
     /** @dataProvider provideTestParseError */
-    public function testParseError($routeString, $expectedExceptionMessage) {
+    public function testParseError($String, $expectedExceptionMessage) {
         $parser = new Std();
-        $this->setExpectedException('FastRoute\\BadRouteException', $expectedExceptionMessage);
-        $parser->parse($routeString);
+        $this->setExpectedException('Fast\\BadException', $expectedExceptionMessage);
+        $parser->parse($String);
     }
 
     public function provideTestParse() {
@@ -140,7 +140,7 @@ class StdTest extends \PhpUnit_Framework_TestCase {
             ],
             [
                 '/test[/opt]/required',
-                "Optional segments can only occur at the end of a route"
+                "Optional segments can only occur at the end of a "
             ],
         ];
     }

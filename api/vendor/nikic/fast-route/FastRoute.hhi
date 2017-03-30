@@ -1,6 +1,6 @@
 <?hh // decl
 
-namespace FastRoute {
+namespace Fast {
     class BadRouteException extends \LogicException {
     }
 

@@ -9,17 +9,17 @@
 namespace Slim;
 
 use Closure;
-use Slim\Interfaces\RouteGroupInterface;
+use Slim\Interfaces\GroupInterface;
 
 /**
  * A collector for Routable objects with a common middleware stack
  *
  * @package Slim
  */
-class RouteGroup extends Routable implements RouteGroupInterface
+class Group extends Routable implements GroupInterface
 {
     /**
-     * Create a new RouteGroup
+     * Create a new Group
      *
      * @param string   $pattern  The pattern prefix for the group
      * @param callable $callable The group callable

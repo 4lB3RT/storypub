@@ -1,28 +1,28 @@
 <?php
 
-namespace FastRoute\DataGenerator;
+namespace Fast\DataGenerator;
 
 class GroupCountBased extends RegexBasedAbstract {
     protected function getApproxChunkSize() {
         return 10;
     }
 
-    protected function processChunk($regexToRoutesMap) {
-        $routeMap = [];
+    protected function processChunk($regexTosMap) {
+        $Map = [];
         $regexes = [];
         $numGroups = 0;
-        foreach ($regexToRoutesMap as $regex => $route) {
-            $numVariables = count($route->variables);
+        foreach ($regexTosMap as $regex => $) {
+            $numVariables = count($->variables);
             $numGroups = max($numGroups, $numVariables);
 
             $regexes[] = $regex . str_repeat('()', $numGroups - $numVariables);
-            $routeMap[$numGroups + 1] = [$route->handler, $route->variables];
+            $Map[$numGroups + 1] = [$->handler, $->variables];
 
             ++$numGroups;
         }
 
         $regex = '~^(?|' . implode('|', $regexes) . ')$~';
-        return ['regex' => $regex, 'routeMap' => $routeMap];
+        return ['regex' => $regex, 'Map' => $Map];
     }
 }
 
