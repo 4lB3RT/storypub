@@ -17,6 +17,7 @@ if(!isset($_SESSION))
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="<?= APP_W.'pub/js/md5.min.js'?>"></script>
     <script type="text/javascript" src="<?= APP_W.'pub/js/'.$this->page; ?>.js" ></script>
+    <script type="text/javascript" src="<?= APP_W.'bower_components/bootstrap/dist/js/bootstrap.min.js'?>"></script>
 </head>
 <body>
 <header>
@@ -30,6 +31,12 @@ if(!isset($_SESSION))
                     <a href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                     <a href="https://www.twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     <a href="https://www.instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <?php
+                        if(\X\Sys\Session::exist('user')){
+                            echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
+                        }
+                    ?>
+
                 </li>
             </ul>
         </div>

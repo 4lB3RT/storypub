@@ -30,6 +30,7 @@ $(document).ready(function(){
                     data:dataString,
                     success: function(data) {
                         var data=JSON.parse(data);
+                        $("#msg").fadeIn();
                         $("#msg").html("<h3>"+data.msg+"</h3>");
                     }
                 })

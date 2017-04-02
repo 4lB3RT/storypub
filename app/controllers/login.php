@@ -49,11 +49,14 @@ class Login extends Controller
             Session::set('user',$result);
            header("Location: /dashboard");
         }else{
-            header("Location:/login");
+            header("Location: /login");
         }
+    }
 
+    function disconnect(){
 
-
+        Session::del('user');
+        header("Location: /");
 
     }
 }

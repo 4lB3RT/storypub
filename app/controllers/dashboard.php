@@ -11,6 +11,7 @@ namespace X\App\Controllers;
 
 use X\App\Models\mdashboard;
 use X\Sys\Controller;
+use X\Sys\Session;
 
 class dashboard extends Controller
 {
@@ -24,7 +25,16 @@ class dashboard extends Controller
     }
 
     function home(){
+
+        //if session isn't started redirect to home
+        if(!session::get('user')){
+            header("Location: /");
+        }
         $this->view->__construct($this->dataView,$this->dataTable);
         $this->view->show();
+    }
+
+    function add_history(){
+        $p1 =1;
     }
 }

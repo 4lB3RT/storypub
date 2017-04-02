@@ -3,6 +3,7 @@
 namespace X\App\Controllers;
 
 use X\Sys\Controller;
+use X\Sys\Session;
 
 class Register extends Controller{
 
@@ -33,7 +34,9 @@ class Register extends Controller{
         $resul = $this->model->insert_user($email,$pass,$roles,$username);
 
         if($resul){
-            $this->ajax(array('msg'=>'Success'));
+            $this->model = new \X\App\Models\mLogin();
+            Login::login();
+            header("Location: /dashboard");
         }else{
             $this->ajax(array('msg'=>'Not Registry'));
         }

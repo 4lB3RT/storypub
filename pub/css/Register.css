@@ -1,7 +1,5 @@
 section{
-
-    color: #fff;
-    font-size: 18px;
+    font-size: 2em;
 }
 .btn{
     background-color: transparent;
@@ -24,4 +22,14 @@ section > .row:nth-child(2){
 }
 section > .row:nth-child(3){
     margin-top: 50px;
+}
+section > #msg{
+    display: none;
+    padding: 10px;
+    background-color: #C9302C;
+    opacity:0.6;
+}
+section > #msg >h3{
+    margin-top: 0;
+
 }

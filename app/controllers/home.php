@@ -3,6 +3,7 @@
    namespace X\App\Controllers;
 
    use X\Sys\Controller;
+   use X\Sys\Session;
 
 
    class Home extends Controller{
@@ -22,6 +23,11 @@
             $data=$this->model->getRoles();
             $this->addData($data);
             //rebuilding with new data
+
+            //if session is started redirect to home
+            if(Session::get('user')){
+                header("Location: /dashboard");
+            }
             $this->view->__construct($this->dataView,$this->dataTable);
             $this->view->show();
             
