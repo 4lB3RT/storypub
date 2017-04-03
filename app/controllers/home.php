@@ -24,7 +24,7 @@
             $this->addData($data);
             //rebuilding with new data
 
-            //if session is started redirect to home
+            //if session is started redirect to dashboard
             if(Session::get('user')){
                 header("Location: /dashboard");
             }

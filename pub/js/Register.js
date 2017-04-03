@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     $("#sign_up").click(function () {
 
-        //take value of input from template
+        //get value of input from template
         var email = $(":input[name=email]").val();
         var pass = $(":input[name=pass]").val();
         var pass_confirm = $(":input[name=pass_confirm]").val();

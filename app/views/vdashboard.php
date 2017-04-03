@@ -15,7 +15,7 @@ class vdashboard extends View
 {
     public function __construct($dataView, $dataTable = null)
     {
-        parent::__construct($dataView);
+        parent::__construct($dataView, $dataTable);
         $this->output = $this->render('tdashboard.php');
     }
 
