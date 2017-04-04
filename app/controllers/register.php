@@ -33,16 +33,16 @@ class Register extends Controller{
         $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
         $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
         $username = filter_input(INPUT_POST,'username',FILTER_SANITIZE_ENCODED);
-        $roles = filter_input(INPUT_POST,'roles',FILTER_SANITIZE_ENCODED);
 
-        $resul = $this->model->insert_user($email,$pass,$roles,$username);
+        $resul = $this->model->insert_user($email,$pass,$username);
 
         if($resul){
             $this->model = new \X\App\Models\mLogin();
             Login::login();
             header("Location: /dashboard");
+            return $this->ajax(true);
         }else{
-            $this->ajax(array('msg'=>'Not Registry'));
+            $this->ajax(false);
         }
 
     }

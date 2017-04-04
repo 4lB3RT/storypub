@@ -38,8 +38,8 @@ class Login extends Controller
 
     function login(){
 
-        $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
-        $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
+        $email = $_REQUEST['email'];
+        $pass = $_REQUEST['pass'];
 
         //if is empty email or password redirect to login again
         if(empty($email) || empty($pass)){
@@ -51,9 +51,10 @@ class Login extends Controller
 
         if($result){
             Session::set('user',$result);
-           header("Location: /dashboard");
+            $this->ajax(true);
         }else{
             header("Location: /login");
+            $this->ajax(false);
         }
     }
 

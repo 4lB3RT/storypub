@@ -1,5 +1,11 @@
 #profile{
-    background-color: red;
+    border-right: 3px teal solid;
     position: fixed;
     height:100%;
+}
+.tab-feed{
+    padding:100px;
+}
+.tab-main{
+    margin-top: 20px;
 }

@@ -7,7 +7,6 @@ $(document).ready(function(){
         var pass = $(":input[name=pass]").val();
         var pass_confirm = $(":input[name=pass_confirm]").val();
         var username = $(":input[name=username]").val();
-        var Roles = $(":input[name=Roles]").val();
 
         if(email != '' && pass != ''&& pass_confirm != ''&& username != ''){
 
@@ -22,21 +21,27 @@ $(document).ready(function(){
                     pass:pass,
                     pass_confirm:pass_confirm,
                     username:username,
-                    roles:Roles
                 };
                 $.ajax({
                     type: "POST",
                     url: '/register/adduser',
                     data:dataString,
                     success: function(data) {
-                        var data=JSON.parse(data);
-                        $("#msg").fadeIn();
-                        $("#msg").html("<h3>"+data.msg+"</h3>");
+                        console.log(data);
+                        if(data){
+                            window.location.href = "/";
+                        }else {
+                            $("#msg").empty();
+                            $("#msg").fadeIn();
+                            $("#msg").html("<h3>Not registry</h3>");
+                        }
                     }
                 })
 
             }else{
-
+                $("#msg").empty();
+                $("#msg").fadeIn();
+                $("#msg").html("<h3>The passwords do not match. </h3>");
             }
 
         }

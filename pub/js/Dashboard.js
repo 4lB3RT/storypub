@@ -17,4 +17,16 @@ $(document).ready(function(){
                 }
             })
         })
+
+    $("#edit").click(function () {
+        var idstory = $('input[name="storyid"]:checkbox:checked').val();
+
+        if(idstory != ''){
+            alert("test");
+            $("#edit").attr("data-toggle","modal").attr("data-target","#modal_edit").attr("data-whatever","@mdo");
+        }
+
+
+    })
+
 })

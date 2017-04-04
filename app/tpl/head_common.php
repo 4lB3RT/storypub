@@ -21,24 +21,26 @@ if(!isset($_SESSION))
 </head>
 <body>
 <header>
-    <div class="row text-center">
-        <div class="col-md-4 col-md-offset-4">
-            <a href="home"><h1>HistoryPub</h1></a>
-        </div>
-        <div class="col-md-4 ul-rss">
-            <ul>
-                <li>
-                    <a href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    <a href="https://www.twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    <?php
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <a href="home"><h1>HistoryPub</h1></a>
+            </div>
+            <div class="col-md-4 ul-rss">
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://www.twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <?php
                         if(\X\Sys\Session::exist('user')){
                             echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
                         }
-                    ?>
+                        ?>
 
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 

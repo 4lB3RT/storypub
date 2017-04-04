@@ -46,10 +46,13 @@ class dashboard extends Controller
 
     function add_history(){
 
-        //take all inputs method post
+        //get all inputs method post
         $title = filter_input(INPUT_POST,'title',FILTER_SANITIZE_ENCODED);
         $history = filter_input(INPUT_POST,'history',FILTER_SANITIZE_ENCODED);
         $tags = filter_input(INPUT_POST,'tags',FILTER_SANITIZE_ENCODED);
+        $image = APP_W.'pub/img/'.filter_input(INPUT_POST,'image',FILTER_SANITIZE_ENCODED);
+
+        $img_ext = strtolower(pathinfo($image,PATHINFO_EXTENSION));
 
         //get id user
         $user = Session::get('user');
