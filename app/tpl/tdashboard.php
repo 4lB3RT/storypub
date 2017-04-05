@@ -8,11 +8,22 @@ include 'head_common.php';
     <div class="container-fluid">
         <div class="row">
             <div id="profile" class="col-md-2">
-               <?php
+                <div class="row">
+                    <?php
                     $user = $this->dataTable["user"];
                     $user = $user[0];
                     echo $user["email"];
-               ?>
+                    ?>
+                </div>
+
+               <div class="row">
+                   <?php
+                   if(\X\Sys\Session::exist('user')){
+                       echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
+                   }
+                   ?>
+               </div>
+
             </div>
         </div>
         <div class="row tab-feed">
@@ -22,9 +33,8 @@ include 'head_common.php';
                     if($user["roles"] == "2" || $user["roles"] == "1" ){
                         echo '
                                 <div class="row text-center">
-                                    <button type="button" id="add_history" class="btn btn-primary" data-toggle="modal" data-target="#Modal_add" data-whatever="@mdo">Add Your history</button>
+                                    <button type="button" id="add_history" class="btn btn-success" data-toggle="modal" data-target="#Modal_add" data-whatever="@mdo">Add Your history</button>
                                     <button id=\'delete\' class=\' btn btn-danger\'>DELETE</button>
-                                    <button id=\'edit\' class=\'btn btn-info\'>UPDATE</button>
                                 </div>
                                 <!-- MODAL FOR ADD STORY-->
                                 <div class="modal fade" id="Modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -120,7 +130,16 @@ include 'head_common.php';
                             $story = $stories[$i];
 
                             if($user["idusers"] == $story["idusers"] || $user["roles"] == "1"){
-                                echo "<label for='id'><td ></labelfor><input id='id' type='checkbox' name='storyid' value='".$story["idstory"]."'></td></label>";
+                                echo "
+                                       <label for='id'>
+                                            <td class='yours' >
+                                                    <input id='id' type='checkbox'  name='storyid' value='".$story["idstory"]."'>
+                                                    <a class='edit' data-toggle='modal' data-target='#modal_edit' data-whatever='@mdo'>
+                                                        <input type='hidden' value='".$story["idstory"]."' class='id' >
+                                                        <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>
+                                                    </a>
+                                            </td>
+                                       </label>";
                             }else {
                                 echo "<td></td>";
                             }

@@ -9,3 +9,10 @@
 .tab-main{
     margin-top: 20px;
 }
+.yours > a > i{
+    color:black;
+}
+.yours > a{
+    cursor: pointer;
+    margin-left: 5%;
+}
