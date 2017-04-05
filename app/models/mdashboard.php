@@ -44,4 +44,13 @@ class mdashboard extends Model
         $this->bind(":id",$id);
         $this->execute();
     }
+
+    function get_story($data){
+
+        $this->query("SELECT * FROM stories WHERE idstory = :id ;");
+        $this->bind(":id",$data["id"]);
+        $this->execute();
+        $data = $this->resultset();
+        return $data;
+    }
 }

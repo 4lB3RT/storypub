@@ -60,7 +60,7 @@ include 'head_common.php';
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="exampleInputFile">File input</label>
-                                                            <input name="image" type="file" id="exampleInputFile">
+                                                            <input name="image" xtype="file" id="exampleInputFile">
                                                             <p class="help-block">Example block-level help text here.</p>
                                                         </div>
                                                 </div>
@@ -84,15 +84,15 @@ include 'head_common.php';
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="recipient-title" class="control-label">Title History</label>
-                                                        <input type="text" class="form-control" id="recipient-title" name="title" required>
+                                                        <input id="title-edit" type="text" class="form-control" id="recipient-title" name="title" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="control-label">Tell us your history</label>
-                                                        <textarea class="form-control" id="message-text" name="history" required></textarea>
+                                                        <textarea id="story-edit" class="form-control" id="message-text" name="history" required></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="recipient-tags" class="control-label">Tags about your history</label>
-                                                        <input type="text" class="form-control" id="recipient-tags" name="tags" required>
+                                                        <input id="tags-edit" type="text" class="form-control" id="recipient-tags" name="tags" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

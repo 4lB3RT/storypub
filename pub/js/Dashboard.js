@@ -19,6 +19,17 @@ $(document).ready(function(){
         })
     $(".edit",this).click(function () {
         var id = $('.id',this).val();
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/list_story",
+            data :{id:id},
+            success : function (data) {
+                var story = JSON.parse(data);
+                $("#title-edit").val(story[0].title);
+                $("#story-edit").val(story[0].history);
+                $("#tags-edit").val(story[0].title);
+            }
+        })
 
     })
 })

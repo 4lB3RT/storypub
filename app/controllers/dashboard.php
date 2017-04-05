@@ -104,4 +104,23 @@ class dashboard extends Controller
         header("Location: /");
 
     }
+
+    function list_story(){
+
+        //get id story from method ajax
+        $id_story = $_REQUEST["id"];
+
+        //transform to array
+        $data = array(
+            "id" => $id_story
+        );
+
+        //return story
+        $story = $this->model->get_story($data);
+
+        if($story){
+            return $this->ajax($story);
+        }
+
+    }
 }
