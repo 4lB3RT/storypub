@@ -4,7 +4,7 @@
     height:100%;
 }
 .tab-feed{
-    padding:100px;
+    padding:50px;
 }
 .tab-main{
     margin-top: 20px;
@@ -15,4 +15,11 @@
 .yours > a{
     cursor: pointer;
     margin-left: 5%;
+}
+#image-profile{
+    width: 150px;
+}
+#container-tab{
+    height:250px;
+    overflow: auto;
 }

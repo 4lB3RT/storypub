@@ -44,9 +44,10 @@ class dashboard extends Controller
     }
 
 
-    function add_history(){
+    function save_story(){
 
         //get all inputs method post
+        $id = filter_input(INPUT_POST,'id_story',FILTER_SANITIZE_ENCODED);
         $title = filter_input(INPUT_POST,'title',FILTER_SANITIZE_ENCODED);
         $history = filter_input(INPUT_POST,'history',FILTER_SANITIZE_ENCODED);
         $tags = filter_input(INPUT_POST,'tags',FILTER_SANITIZE_ENCODED);
@@ -64,16 +65,34 @@ class dashboard extends Controller
             return;
         }
 
-        //fill array
-        $data = array(
-            "title" => $title,
-            "history" => $history,
-            "tags" => $tags,
-            "user" => $user["idusers"]
-        );
+        if($id == null){
 
-        //go to model to insert
-        $result = $this->model->set_add_history($data);
+            //fill array
+            $data = array(
+                "title" => $title,
+                "history" => $history,
+                "tags" => $tags,
+                "user" => $user["idusers"]
+            );
+
+            //go to model to insert
+            $result = $this->model->set_add_story($data);
+
+        }else{
+
+            //fill array with id
+            $data = array(
+                "id" => $id,
+                "title" => $title,
+                "history" => $history,
+                "tags" => $tags,
+                "user" => $user["idusers"]
+            );
+
+            //go to model to insert
+            $result = $this->model->set_edit_story($data);
+        }
+
 
         //if not insert redirect to dashboard with message
         if(!$result){

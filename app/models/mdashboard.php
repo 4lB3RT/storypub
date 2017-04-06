@@ -28,12 +28,12 @@ class mdashboard extends Model
         $data = $this->resultset();
         return $data;
     }
-    function set_add_history($data){
+    function set_add_story($data){
 
         //query insert in table stories with date
-        $this->query("INSERT INTO stories (title,history,user,date_in) VALUES (:title,:history,:iduser,:date_in);");
+        $this->query("INSERT INTO stories (title,history,user,date_in) VALUES (:title,:story,:iduser,:date_in);");
         $this->bind(":title",$data["title"]);
-        $this->bind(":history",$data["history"]);
+        $this->bind(":story",$data["history"]);
         $this->bind(":iduser",$data["user"]);
         $this->bind(":date_in",date("F j, Y, g:i a"));
         $this->execute();
@@ -52,5 +52,15 @@ class mdashboard extends Model
         $this->execute();
         $data = $this->resultset();
         return $data;
+    }
+    function set_edit_story($data){
+
+        $this->query("UPDATE stories SET title =:title , history =:story, user =:iduser,date_in =:date_in WHERE idstory =:id ");
+        $this->bind(":id",$data["id"]);
+        $this->bind(":title",$data["title"]);
+        $this->bind(":story",$data["history"]);
+        $this->bind(":iduser",$data["user"]);
+        $this->bind(":date_in",date("F j, Y, g:i a"));
+        $resul = $this->execute();
     }
 }

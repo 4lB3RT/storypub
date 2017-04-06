@@ -19,6 +19,7 @@ $(document).ready(function(){
         })
     $(".edit",this).click(function () {
         var id = $('.id',this).val();
+        $("#id_reloadstory").val(id);
         $.ajax({
             type: "POST",
             url: "/dashboard/list_story",

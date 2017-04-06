@@ -1,22 +1,33 @@
 <?php
 include 'head_common.php';
 ?>
+<?php
+    $user = $this->dataTable["user"];
+    $user = $user[0];
+?>
 <section>
 
 
-    <!-- TABLE STORIES-->
+    <!-- PROFILE USERS-->
     <div class="container-fluid">
-        <div class="row">
+        <div class="row ">
             <div id="profile" class="col-md-2">
-                <div class="row">
-                    <?php
-                    $user = $this->dataTable["user"];
-                    $user = $user[0];
-                    echo $user["email"];
-                    ?>
+                <div class="row text-center">
+                    <div>
+                        <img id="image-profile" class="img-circle" src="<?= APP_W.'pub/img/logo.png'?>">
+                    </div>
                 </div>
-
-               <div class="row">
+                <div class="row text-center">
+                    <div>
+                        <?= $user["username"]; ?>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div>
+                        <?= $user["email"]; ?>
+                    </div>
+                </div>
+               <div class="row text-center">
                    <?php
                    if(\X\Sys\Session::exist('user')){
                        echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
@@ -44,7 +55,7 @@ include 'head_common.php';
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title" id="exampleModalLabel">New History</h4>
                                             </div>
-                                            <form id="form_add_history" action="dashboard/add_history" method="post">
+                                            <form id="form_add_history" action="dashboard/save_story" method="post">
                                                 <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="recipient-title" class="control-label">Title History</label>
@@ -80,7 +91,7 @@ include 'head_common.php';
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title" id="exampleModalLabel">Edit your stories</h4>
                                             </div>
-                                            <form id="form_add_history" action="" method="post">
+                                            <form id="form_add_history" action="/dashboard/save_story" method="post">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="recipient-title" class="control-label">Title History</label>
@@ -96,6 +107,7 @@ include 'head_common.php';
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
+                                                    <input type="hidden" id="id_reloadstory" name="id_story">
                                                     <button type="submit" class="btn btn-primary">History Done</button>
                                                 </div>
                                             </form>
@@ -105,7 +117,6 @@ include 'head_common.php';
                     }
 
                 ?>
-
 
 
 
@@ -119,39 +130,43 @@ include 'head_common.php';
                         <td>DATE</td>
 
                     </tr>
-                    <?php
-                        for($i=0;$i<count($this->dataTable["stories"]);$i++){
-                            if($i == 0){
-                                echo "<tr class='success'>";
-                            }else{
-                                echo "<tr class='active'>";
-                            }
-                            $stories = $this->dataTable["stories"];
-                            $story = $stories[$i];
-
-                            if($user["idusers"] == $story["idusers"] || $user["roles"] == "1"){
-                                echo "
-                                       <label for='id'>
-                                            <td class='yours' >
-                                                    <input id='id' type='checkbox'  name='storyid' value='".$story["idstory"]."'>
-                                                    <a class='edit' data-toggle='modal' data-target='#modal_edit' data-whatever='@mdo'>
-                                                        <input type='hidden' value='".$story["idstory"]."' class='id' >
-                                                        <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>
-                                                    </a>
-                                            </td>
-                                       </label>";
-                            }else {
-                                echo "<td></td>";
-                            }
-                                echo "<td >".$story["username"]."</td>";
-                                echo "<td>".$story["title"]."</td>";
-                                echo "<td>".$story["history"]."</td>";
-                                echo "<td>".$story["date_in"]."</td>";
-
-                            echo"</tr>";
-                        }
-                    ?>
                 </table>
+                <div id="container-tab">
+                    <table class="table table-condensed">
+                        <?php
+                            for($i=0;$i<count($this->dataTable["stories"]);$i++){
+                                if($i == 0){
+                                    echo "<tr class='success'>";
+                                }else{
+                                    echo "<tr class='active'>";
+                                }
+                                $stories = $this->dataTable["stories"];
+                                $story = $stories[$i];
+
+                                if($user["idusers"] == $story["idusers"] || $user["roles"] == "1"){
+                                    echo "
+                                           <label for='id'>
+                                                <td class='yours' >
+                                                        <input id='id' type='checkbox'  name='storyid' value='".$story["idstory"]."'>
+                                                        <a class='edit' data-toggle='modal' data-target='#modal_edit' data-whatever='@mdo'>
+                                                            <input type='hidden' value='".$story["idstory"]."' class='id' >
+                                                            <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>
+                                                        </a>
+                                                </td>
+                                           </label>";
+                                }else {
+                                    echo "<td></td>";
+                                }
+                                    echo "<td >".$story["username"]."</td>";
+                                    echo "<td>".$story["title"]."</td>";
+                                    echo "<td>".$story["history"]."</td>";
+                                    echo "<td>".$story["date_in"]."</td>";
+
+                                echo"</tr>";
+                            }
+                        ?>
+                    </table>
+                </div>
             </div>
 
         </div>
