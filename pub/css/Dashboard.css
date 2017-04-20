@@ -23,3 +23,10 @@
     height:250px;
     overflow: auto;
 }
+.user-edit{
+    display: none;
+    margin-top: 20%;
+}
+#profile .btn{
+    width: 100%;
+}

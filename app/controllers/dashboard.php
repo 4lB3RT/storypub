@@ -80,7 +80,7 @@ class dashboard extends Controller
 
         }else{
 
-            //fill array with id
+            //fill array with id is a edit
             $data = array(
                 "id" => $id,
                 "title" => $title,

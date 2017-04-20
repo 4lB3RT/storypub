@@ -61,6 +61,6 @@ class mdashboard extends Model
         $this->bind(":story",$data["history"]);
         $this->bind(":iduser",$data["user"]);
         $this->bind(":date_in",date("F j, Y, g:i a"));
-        $resul = $this->execute();
+        $this->execute();
     }
 }

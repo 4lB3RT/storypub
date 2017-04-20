@@ -49,6 +49,7 @@ class Login extends Controller
         //testing login
         $result = $this->model->login($email,$pass);
 
+        //if login is success create a variable session, else redirect to login again
         if($result){
             Session::set('user',$result);
             $this->ajax(true);
@@ -60,6 +61,7 @@ class Login extends Controller
 
     function disconnect(){
 
+        //delete variable session and redirect to home page
         Session::del('user');
         header("Location: /");
 

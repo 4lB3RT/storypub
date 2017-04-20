@@ -30,14 +30,22 @@ class Register extends Controller{
 
     }
     function adduser(){
+
+        //get inputs
         $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
         $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
         $username = filter_input(INPUT_POST,'username',FILTER_SANITIZE_ENCODED);
 
+        //pass inputs to model for add user
         $resul = $this->model->insert_user($email,$pass,$username);
 
+        //if user is add redirect to dashboard
         if($resul){
+
+            //change model for get login
             $this->model = new \X\App\Models\mLogin();
+
+            //login
             Login::login();
             header("Location: /dashboard");
             return $this->ajax(true);
