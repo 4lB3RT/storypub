@@ -49,7 +49,7 @@ class dashboard extends Controller
         //get all inputs method post
         $id = filter_input(INPUT_POST,'id_story',FILTER_SANITIZE_ENCODED);
         $title = filter_input(INPUT_POST,'title',FILTER_SANITIZE_ENCODED);
-        $history = filter_input(INPUT_POST,'history',FILTER_SANITIZE_ENCODED);
+        $story = filter_input(INPUT_POST,'history',FILTER_SANITIZE_ENCODED);
         $tags = filter_input(INPUT_POST,'tags',FILTER_SANITIZE_ENCODED);
         $image = APP_W.'pub/img/'.filter_input(INPUT_POST,'image',FILTER_SANITIZE_ENCODED);
 
@@ -60,7 +60,7 @@ class dashboard extends Controller
         $user = $user[0];
 
         //checking if are empty
-        if(empty($title) || empty($history) ||empty($tags) ){
+        if(empty($title) || empty($story) ||empty($tags) ){
             header("Location: /");
             return;
         }
@@ -70,7 +70,7 @@ class dashboard extends Controller
             //fill array
             $data = array(
                 "title" => $title,
-                "history" => $history,
+                "story" => $story,
                 "tags" => $tags,
                 "user" => $user["idusers"]
             );
@@ -84,7 +84,7 @@ class dashboard extends Controller
             $data = array(
                 "id" => $id,
                 "title" => $title,
-                "history" => $history,
+                "history" => $story,
                 "tags" => $tags,
                 "user" => $user["idusers"]
             );
@@ -136,6 +136,27 @@ class dashboard extends Controller
 
         //return story
         $story = $this->model->get_story($data);
+
+        if($story){
+            return $this->ajax($story);
+        }
+
+    }
+
+    function rating(){
+
+        //get id story from method ajax
+        $rate = $_REQUEST["rate"];
+        $id_story = $_REQUEST["id_stroy"];
+
+        //transform to array
+        $data = array(
+            "rate" => $rate,
+            "id"   => $id_story
+        );
+
+        //return story
+        $result = $this->model->set_rate($data);
 
         if($story){
             return $this->ajax($story);

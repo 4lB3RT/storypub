@@ -17,45 +17,46 @@ include 'head_common.php';
                         <img id="image-profile" class="img-circle" src="<?= APP_W.'pub/img/logo.png'?>">
                     </div>
                 </div>
-                <div class="row text-center">
-                    <div class="user-info">
-                        <?= $user["username"]; ?>
+                <form>
+                    <div class="row text-center">
+                        <div class="user-info">
+                            <?= $user["username"]; ?>
+                        </div>
+
+                        <div class="user-edit">
+                            <input type="text" class="form-control" id="usename" name="username" placeholder="username" required>
+                        </div>
                     </div>
-                    <form>
-                    <div class="user-edit">
-                        <input type="text" class="form-control" id="usename" name="username" placeholder="username" required>
+                    <div class="row text-center">
+                        <div class="user-info">
+                            <?= $user["email"]; ?>
+                        </div>
+                        <div class="user-edit">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
+                        </div>
                     </div>
-                </div>
-                <div class="row text-center">
-                    <div class="user-info">
-                        <?= $user["email"]; ?>
+                    <div class="row text-center">
+                        <div class="user-edit">
+                            <input type="password" class="form-control" id="pass" name="passs" placeholder="password" required>
+                        </div>
                     </div>
-                    <div class="user-edit">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
+                    <div class="row text-center user-edit">
+                        <input type="hidden" value="<?= $user["idusers"]?>" id="user_id" name="id_user">
+                        <button id="save-user" class="btn btn-success">Save</button>
+                        <button id="exit-button" class="btn btn-danger">Exit</button>
                     </div>
-                </div>
-                <div class="row text-center">
-                    <div class="user-edit">
-                        <input type="password" class="form-control" id="pass" name="passs" placeholder="password" required>
-                    </div>
-                </div>
-                <div class="row text-center user-edit">
-                    <input type="hidden" value="<?= $user["idusers"]?>" name="id_user">
-                    <button id="save-user" class="btn btn-success">Save</button>
-                    <button id="exit-button" class="btn btn-danger">Exit</button>
-                </div>
-               <div class="row text-center">
-                   <?php
-                   if(\X\Sys\Session::exist('user')){
-                       echo'<button id="edit-profile" class="btn btn-info">Edit</button>';
-                       echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
-                       echo '</div>';
-                       echo'<form>';
-                   }
-                   ?>
+                   <div class="row text-center">
+                       <?php
+                       if(\X\Sys\Session::exist('user')){
+                           echo'<button id="edit-profile" class="btn btn-info">Edit</button>';
+                           echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
+                           echo '</div>';
+                           echo'</form>';
+                       }
+                       ?>
 
 
-            </div>
+
         </div>
         <div class="row tab-feed">
             <div class="col-lg-10 col-lg-offset-2">
@@ -65,54 +66,48 @@ include 'head_common.php';
                     if($user["roles"] == "2" || $user["roles"] == "1" ){
                         echo '
                                 <div class="row text-center">
-                                    <button type="button" id="add_history" class="btn btn-success" data-toggle="modal" data-target="#Modal_add" data-whatever="@mdo">Add Your history</button>
-                                    <button id=\'delete\' class=\' btn btn-danger\'>DELETE</button>
+                                    <a class="btn btn-success" data-toggle="modal" data-target="#modal_add" data-whatever="@mdo">Add Your Story</a>
+                                    <button id="delete" class="btn btn-danger">DELETE</button>
                                 </div>
                                 <!-- MODAL FOR ADD STORY-->
-                                <div class="modal fade" id="Modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                <div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="modaladd">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="exampleModalLabel">New History</h4>
+                                                <h4 class="modal-title" id="exampleModalLabel">Add Your Story</h4>
                                             </div>
-                                            <form id="form_add_history" action="dashboard/save_story" method="post">
+                                            <form id="form_add_story" name="form_add_stories" action="dashboard/save_story" method="post">
                                                 <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="recipient-title" class="control-label">Title History</label>
-                                                            <input type="text" class="form-control" id="recipient-title" name="title" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="message-text" class="control-label">Tell us your history</label>
-                                                            <textarea class="form-control" id="message-text" name="history" required></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="recipient-tags" class="control-label">Tags about your history</label>
-                                                            <input type="text" class="form-control" id="recipient-tags" name="tags" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">File input</label>
-                                                            <input name="image" xtype="file" id="exampleInputFile">
-                                                            <p class="help-block">Example block-level help text here.</p>
-                                                        </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-title" class="control-label">Title History</label>
+                                                        <input id="title-add" type="text" class="form-control" id="recipient-title" name="title" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="control-label">Tell us your history</label>
+                                                        <textarea id="story-add" class="form-control" id="message-text" name="history" required></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-tags" class="control-label">Tags about your history</label>
+                                                        <input id="tags-add" type="text" class="form-control" id="recipient-tags" name="tags" required>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary">History Done</button>
+                                                     <button type="submit" class="btn btn-primary">History Done</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                
                                 <!-- MODAL EDIT STORY-->
-                                <div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                <div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="modaledit">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title" id="exampleModalLabel">Edit your stories</h4>
                                             </div>
-                                            <form id="form_add_history" action="/dashboard/save_story" method="post">
+                                            <form id="form_edit_history" action="/dashboard/save_story" method="post">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="recipient-title" class="control-label">Title History</label>
@@ -181,6 +176,13 @@ include 'head_common.php';
                                     echo "<td >".$story["username"]."</td>";
                                     echo "<td>".$story["title"]."</td>";
                                     echo "<td>".$story["history"]."</td>";
+                                    echo "<td id='rate'>
+                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='0'> </i></a>
+                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='1'> </i></a>
+                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='2'> </i></a>
+                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='3'> </i></a>
+                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='4'> </i></a>
+                                          </td>";
                                     echo "<td>".$story["date_in"]."</td>";
 
                                 echo"</tr>";

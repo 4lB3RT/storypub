@@ -2,14 +2,15 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'vendor/autoload.php';
+//fichero con la configuracion de la base de datos
+require 'config.slim.php';
 
-    $app = new \Slim\App;
+
+$app = new \Slim\App(['settings'=>$config]);
 
     $container['db'] = function ($c) {
         $db = $c['settings']['db'];
-        $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'],
-            $db['user'], $db['pass']);
+        $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'],$db['user'], $db['pass']);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $pdo;
@@ -22,7 +23,7 @@ require 'vendor/autoload.php';
        return $this->response->whitJson($result);
     });
 
-    $app->get('users{id}',function(Request $req,Response$res,$args){
+    $app->get('users{id}',function(Request $req,Response $res,$args){
        $id = (int)$args['id'];
     });
 
@@ -41,13 +42,3 @@ require 'vendor/autoload.php';
     });
 
     $app->run();
-
-function hello($name=null,Request $request ,Response $response){
-    $name=$argc['name'];
-    if($name != null){
-        $response->getBody()->write($name);
-    }else{
-        $response->getBody()->write($name);
-    }
-    return $response;
-}

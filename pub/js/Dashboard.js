@@ -34,6 +34,26 @@ $(document).ready(function(){
 
     })
 
+    $(".rate",this).click(function () {
+        var rate =$(".input-rate",this).val();
+        var id_stroy =$('.story_id',this).val();
+        var id_user =$('#user_id').val();
+        alert(id_user);
+        var dataString = {
+            rate:rate,
+            id_stroy:id_stroy
+        };
+        $.ajax({
+            type:"POST",
+            url:"dashboard/rating",
+            data:dataString,
+            success: function () {
+
+            }
+        })
+
+    })
+
     $("#edit-profile").click(function () {
         $(".user-info,#disconnect,#edit-profile").hide();
         $(".user-edit,#exit-button").show();
@@ -84,4 +104,6 @@ $(document).ready(function(){
 
         }
     })
+
+
 })

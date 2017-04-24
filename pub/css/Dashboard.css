@@ -30,3 +30,7 @@
 #profile .btn{
     width: 100%;
 }
+#rate i{
+    cursor: pointer;
+    color: black;
+}
