@@ -35,19 +35,22 @@ $(document).ready(function(){
     })
 
     $(".rate",this).click(function () {
-        var rate =$(".input-rate",this).val();
-        var id_stroy =$('.story_id',this).val();
-        var id_user =$('#user_id').val();
-        alert(id_user);
+        var rate = $(".input-rate",this).val();
+        var id_stroy = $('.story_id',this).val();
+        var id_user = $('#user_id').val();
+
         var dataString = {
             rate:rate,
-            id_stroy:id_stroy
+            id_stroy:id_stroy,
+            id_user:id_user
         };
         $.ajax({
             type:"POST",
             url:"dashboard/rating",
             data:dataString,
             success: function () {
+                alert("test");
+                $(".star",this).attr("class"," star fa fa-star");
 
             }
         })

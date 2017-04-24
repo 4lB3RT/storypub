@@ -22,7 +22,8 @@ class mdashboard extends Model
     function get_stories()
     {
 
-        $this->query("SELECT users.idusers,users.username,stories.idstory,title,history,date_in FROM stories 
+        $this->query("SELECT users.idusers,users.username, valoracions.val, stories.idstory,title,history,date_in FROM valoracions 
+                                                                  RIGHT JOIN stories ON valoracions.story = stories.idstory
                                                                   INNER JOIN users ON stories.user = users.idusers
                                                                   ORDER BY date_in DESC;");
         $this->execute();
@@ -39,7 +40,7 @@ class mdashboard extends Model
         $this->bind(":story", $data["story"]);
         $this->bind(":iduser", $data["user"]);
         $this->bind(":date_in", date("F j, Y, g:i a"));
-        $result = $this->execute();
+        $this->execute();
     }
 
     function del_story($id)
@@ -73,11 +74,29 @@ class mdashboard extends Model
 
     function set_rate($data)
     {
-        $this->query("INSERT INTO valorations (title,history,user,date_in) VALUES (:title,:story,:iduser,:date_in);");
-        $this->bind(":title", $data["title"]);
-        $this->bind(":story", $data["story"]);
-        $this->bind(":iduser", $data["user"]);
-        $this->bind(":date_in", date("F j, Y, g:i a"));
-        $result = $this->execute();
+        //check if have any rate from user about story
+        $this->query("SELECT * FROM valoracions WHERE user =:id_user and story =:id_story ");
+        $this->bind(":id_story", $data["id_story"]);
+        $this->bind(":id_user", $data["id_user"]);
+        $this->execute();
+        $result = $this->rowCount();
+
+        //if is true udpate else insert
+        if($result > 0){
+            $this->query("UPDATE valoracions SET val = :rate ,story = :id_story ,user =:id_user WHERE user = :id_user and story = :id_story");
+            $this->bind(":id_story", $data["id_story"]);
+            $this->bind(":id_user", $data["id_user"]);
+            $this->bind(":rate", $data["rate"]);
+            $res = $this->execute();
+
+        }else{
+            $this->query("INSERT INTO valoracions (val,story,user) VALUES(:rate,:id_story,:id_user)");
+            $this->bind(":id_story", $data["id_story"]);
+            $this->bind(":id_user", $data["id_user"]);
+            $this->bind(":rate", $data["rate"]);
+            $res = $this->execute();
+        }
+
+
     }
 }

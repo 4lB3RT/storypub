@@ -142,6 +142,7 @@ include 'head_common.php';
                         <td>CHECK</td>
                         <td>USERNAME</td>
                         <td>TITLE</td>
+                        <td>RATING</td>
                         <td>STORY</td>
                         <td>DATE</td>
 
@@ -176,13 +177,16 @@ include 'head_common.php';
                                     echo "<td >".$story["username"]."</td>";
                                     echo "<td>".$story["title"]."</td>";
                                     echo "<td>".$story["history"]."</td>";
-                                    echo "<td id='rate'>
-                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='0'> </i></a>
-                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='1'> </i></a>
-                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='2'> </i></a>
-                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='3'> </i></a>
-                                                <a class='rate' ><i class='fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='4'> </i></a>
-                                          </td>";
+                                    echo "<td id='rate'>";
+                                            for($j=0;$j < 5;$j++){
+                                                if($j < $story["val"]){
+                                                    echo "<a class='rate' ><i class='star fa fa-star' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='$j'> </i></a>";
+                                                }else{
+                                                    echo "<a class='rate' ><i class='star fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='$j'> </i></a>";
+
+                                                }
+                                            }
+
                                     echo "<td>".$story["date_in"]."</td>";
 
                                 echo"</tr>";

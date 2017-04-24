@@ -148,18 +148,20 @@ class dashboard extends Controller
         //get id story from method ajax
         $rate = $_REQUEST["rate"];
         $id_story = $_REQUEST["id_stroy"];
+        $id_user = $_REQUEST["id_user"];
 
         //transform to array
         $data = array(
-            "rate" => $rate,
-            "id"   => $id_story
+            "rate"      => $rate,
+            "id_story"  => $id_story,
+            "id_user"   => $id_user
         );
 
         //return story
         $result = $this->model->set_rate($data);
 
-        if($story){
-            return $this->ajax($story);
+        if($result){
+            return $this->ajax($result);
         }
 
     }
