@@ -13,17 +13,21 @@ include 'head_common.php';
         <div class="row ">
             <div id="profile" class="col-md-2">
                 <div class="row text-center">
-                    <div>
-                        <img id="image-profile" class="img-circle" src="<?= APP_W.'pub/img/logo.png'?>">
-                    </div>
+                    <?php
+                        if($user["roles"] == "3"){
+                            echo'<div class="text-left">
+                                    <h3>IMPORTANT:</h3><h4>If you want create story, first rate 10 strories</h4>
+                                </div>';
+                        }
+                         ?>
                 </div>
                 <form>
                     <div class="row text-center">
                         <div class="user-info">
                             <?= $user["username"]; ?>
                         </div>
-
                         <div class="user-edit">
+                            <label for="usename">Username</label>
                             <input type="text" class="form-control" id="usename" name="username" placeholder="username" required>
                         </div>
                     </div>
@@ -32,11 +36,13 @@ include 'head_common.php';
                             <?= $user["email"]; ?>
                         </div>
                         <div class="user-edit">
+                            <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
                         </div>
                     </div>
                     <div class="row text-center">
                         <div class="user-edit">
+                            <label for="pass">Password</label>
                             <input type="password" class="form-control" id="pass" name="passs" placeholder="password" required>
                         </div>
                     </div>
@@ -50,16 +56,12 @@ include 'head_common.php';
                        if(\X\Sys\Session::exist('user')){
                            echo'<button id="edit-profile" class="btn btn-info">Edit</button>';
                            echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
-                           echo '</div>';
-                           echo'</form>';
                        }
                        ?>
-
-
-
-        </div>
-        <div class="row tab-feed">
-            <div class="col-lg-10 col-lg-offset-2">
+                   </div>
+                </form>
+            </div>
+            <div class="col-lg-10 ">
                 <?php
 
                     //if is user or admin for make modal
@@ -139,7 +141,11 @@ include 'head_common.php';
                 <!-- TABLE  -->
                 <table class="tab-main table table-condensed">
                     <tr>
-                        <td>CHECK</td>
+                        <?php
+                            if( $user["roles"] == "2" || $user["roles"] == "1"){
+                                echo '<td>CHECK</td>';
+                            }
+                        ?>
                         <td>USERNAME</td>
                         <td>TITLE</td>
                         <td>RATING</td>

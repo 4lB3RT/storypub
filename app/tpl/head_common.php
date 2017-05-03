@@ -24,7 +24,7 @@ if(!isset($_SESSION))
     <div class="container-fluid">
         <div class="row text-center">
             <div class="col-md-4 col-md-offset-4 text-center">
-                <a href="home"><h1>HistoryPub</h1></a>
+                <a href="home"><h1>Storypub</h1></a>
             </div>
             <div class="col-md-4 ul-rss">
                 <ul>

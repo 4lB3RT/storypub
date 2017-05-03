@@ -21,7 +21,7 @@ class mLogin extends Model
 
     function login($email,$pass){
 
-        $this->query("SELECT * FROM users WHERE email=:email AND passwd=:pass;");
+        $this->query("SELECT users.* ,COUNT(val) as valoration FROM users INNER JOIN valoracions ON users.idusers = valoracions.user WHERE email=:email AND passwd=:pass;");
         $this->bind(":email",$email);
         $this->bind(":pass",$pass);
         $resul = $this->execute();
