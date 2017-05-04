@@ -31,11 +31,10 @@ class dashboard extends Controller
             header("Location: /");
             return;
         }
-        $user =  Session::get('user');
         //get all stories
         $data = array(
-            'user' => $user,
-            'stories' => $this->model->get_stories($user)
+            'user' => Session::get('user'),
+            'stories' => $this->model->get_stories()
             );
 
         //pass to view data

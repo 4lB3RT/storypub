@@ -19,15 +19,15 @@ class mdashboard extends Model
         parent::__construct();
     }
 
-    function get_stories($user)
+    function get_stories()
     {
-        $this->query("SELECT COUNT(val) as valoration FROM users INNER JOIN valoracions ON users.idusers = valoracions.user");
+        $this->query("SELECT idusers, COUNT(val) as valoration FROM users INNER JOIN valoracions ON users.idusers = valoracions.user");
         $this->execute();
         $resul = $this->resultset();
 
-        if($resul[0] > 10){
+        if($resul[0]["valoration"] > 10){
             $this->query("UPDATE users SET roles = 2 WHERE idusers =:user");
-            $this->bind(":user", $user["idusers"]);
+            $this->bind(":user", $resul[0]["idusers"]);
             $this->execute();
         }
 
