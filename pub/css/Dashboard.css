@@ -21,9 +21,8 @@
 #image-profile{
     width: 150px;
 }
-#container-tab{
-    height:250px;
-    overflow: auto;
+#content-2{
+    padding: 2%;
 }
 .user-edit{
     display: none;

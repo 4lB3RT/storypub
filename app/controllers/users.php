@@ -3,7 +3,7 @@
 namespace X\App\Controllers;
 
    use X\Sys\Controller;
-
+    use X\Sys\Session;
 
    class Users extends Controller{
    		
@@ -19,36 +19,13 @@ namespace X\App\Controllers;
          
    		function home(){
 
+            //if session is started redirect to dashboard
+            if(Session::get('user')){
+                header("Location: /dashboard");
+            }
+            $this->view->__construct($this->dataView,$this->dataTable);
+            $this->view->show();
          }
 
-         function edit(){
 
-   		    //get inputs from ajax
-             $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
-             $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
-             $username = filter_input(INPUT_POST,'username',FILTER_SANITIZE_ENCODED);
-             $id = filter_input(INPUT_POST,'id',FILTER_SANITIZE_ENCODED);
-
-             //fill array
-             $data = array(
-                 "email" => $email,
-                 "pass" => $pass,
-                 "username" => $username,
-                 "id" => $id
-             );
-
-             //pass inputs to model for add user
-             $resul = $this->model->edit_user($data);
-
-             if($resul){
-                 //change model for get login
-                 $this->model = new \X\App\Models\mLogin();
-
-                 //login
-                 Login::login();
-                 header("Location: /dashboard");
-                 return $this->ajax(true);
-             }
-
-         }
    }

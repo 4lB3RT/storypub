@@ -49,7 +49,7 @@ $(document).ready(function(){
             url:"dashboard/rating",
             data:dataString,
             success: function () {
-                alert("test");
+
                 $(".star",this).attr("class"," star fa fa-star");
 
             }
@@ -90,8 +90,7 @@ $(document).ready(function(){
                 };
                 $.ajax({
                     type: "POST",
-                    url: '/users/edit',
-                    async: false,
+                    url: '/dashboard/edit',
                     data:dataString,
                     success: function(data) {
                         console.log(data);

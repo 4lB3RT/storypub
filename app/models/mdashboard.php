@@ -21,20 +21,10 @@ class mdashboard extends Model
 
     function get_stories()
     {
-        $this->query("SELECT idusers, COUNT(val) as valoration FROM users INNER JOIN valoracions ON users.idusers = valoracions.user");
-        $this->execute();
-        $resul = $this->resultset();
-
-        if($resul[0]["valoration"] > 10){
-            $this->query("UPDATE users SET roles = 2 WHERE idusers =:user");
-            $this->bind(":user", $resul[0]["idusers"]);
-            $this->execute();
-        }
-
-        $this->query("SELECT users.idusers,users.username, valoracions.val, stories.idstory,title,history,date_in FROM valoracions 
-                                                                  RIGHT JOIN stories ON valoracions.story = stories.idstory
+        //get all stories with valorations
+        $this->query("SELECT users.idusers,users.username, stories.idstory,title,history,date_in FROM stories 
                                                                   INNER JOIN users ON stories.user = users.idusers
-                                                                  ORDER BY date_in DESC;");
+                                                                  ORDER BY date_in DESC ;");
         $this->execute();
         $data = $this->resultset();
         return $data;
@@ -42,9 +32,8 @@ class mdashboard extends Model
 
     function set_add_story($data)
     {
-
         //query insert in table stories with date
-        $this->query("INSERT INTO stories (title,history,user,date_in) VALUES (:title,:story,:iduser,:date_in);");
+        $this->query("INSERT INTO stories (title,history,user,date_in) VALUES (:title,:story,:iduser,:date_in)");
         $this->bind(":title", $data["title"]);
         $this->bind(":story", $data["story"]);
         $this->bind(":iduser", $data["user"]);
@@ -61,7 +50,7 @@ class mdashboard extends Model
 
     function get_story($data)
     {
-
+        //get a single story
         $this->query("SELECT * FROM stories WHERE idstory = :id ;");
         $this->bind(":id", $data["id"]);
         $this->execute();
@@ -71,7 +60,7 @@ class mdashboard extends Model
 
     function set_edit_story($data)
     {
-
+        //update story
         $this->query("UPDATE stories SET title =:title , history =:story, user =:iduser,date_in =:date_in WHERE idstory =:id ");
         $this->bind(":id", $data["id"]);
         $this->bind(":title", $data["title"]);
@@ -106,6 +95,51 @@ class mdashboard extends Model
             $res = $this->execute();
         }
 
+
+    }
+    function reload_user($email,$pass){
+        $this->query("SELECT *  FROM users WHERE users.email=:email AND users.passwd=:pass;");
+        $this->bind(":email",$email);
+        $this->bind(":pass",$pass);
+        $this->execute();
+        $resul = $this->resultset();
+
+        if($resul[0] > 1){
+            $this->query("SELECT COUNT(val) as valoracions FROM valoracions  WHERE user = :user");
+            $this->bind(":user",$resul[0]["idusers"]);
+            $this->execute();
+            $val = $this->resultset();
+            $resul[0] = array_merge($resul[0],$val[0]);
+            return $resul;
+        }
+    }
+
+    function role($data){
+        $this->query("UPDATE users SET roles = 2 WHERE idusers = :id_user");
+        $this->bind(":id_user",$data["id"]);
+        $this->execute();
+    }
+
+    function val_user($data){
+        $this->query("SELECT val FROM valoracions WHERE user =:id_user && story =:id_story");
+        $this->bind(":id_user",$data["id"]);
+        $this->bind(":id_story",$data["id_story"]);
+        $this->execute();
+        $val = $this->resultset();
+        return $val;
+    }
+
+    function edit_user($data){
+
+        if($data["pass"]){
+            $this->query("UPDATE users SET username =:username , email =:email , passwd =:pass WHERE idusers =:id ");
+            $this->bind(":id",$data["id"]);
+            $this->bind(":email",$data["email"]);
+            $this->bind(":pass",$data["pass"]);
+            $this->bind(":username",$data["username"]);
+            $resul = $this->execute();
+            return $resul;
+        }
 
     }
 }

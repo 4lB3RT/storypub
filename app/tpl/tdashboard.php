@@ -61,7 +61,7 @@ include 'head_common.php';
                    </div>
                 </form>
             </div>
-            <div class="col-lg-10 ">
+            <div id="content-2" class="col-lg-10 ">
                 <?php
 
                     //if is user or admin for make modal
@@ -141,6 +141,7 @@ include 'head_common.php';
                 <!-- TABLE  -->
                 <table class="tab-main table table-condensed">
                     <tr>
+                        <td>#</td>
                         <?php
                             if( $user["roles"] == "2" || $user["roles"] == "1"){
                                 echo '<td>CHECK</td>';
@@ -163,6 +164,7 @@ include 'head_common.php';
                                 }else{
                                     echo "<tr class='active'>";
                                 }
+                                echo "<td>".$i."</td>";
                                 $stories = $this->dataTable["stories"];
                                 $story = $stories[$i];
 
@@ -180,6 +182,7 @@ include 'head_common.php';
                                 }else {
                                     echo "<td></td>";
                                 }
+
                                     echo "<td >".$story["username"]."</td>";
                                     echo "<td>".$story["title"]."</td>";
                                     echo "<td>".$story["history"]."</td>";

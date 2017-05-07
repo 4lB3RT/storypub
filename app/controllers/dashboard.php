@@ -26,16 +26,45 @@ class dashboard extends Controller
 
     function home(){
 
+        //get user for update variable session each refresh app in dashboard
+        $this->refresh_user();
+        if(empty(Session::get('user'))){
+            Session::destroy();
+            header("Location: /");
+        }else{
+            $user = Session::get('user');
+        }
+
+        if($user[0]["roles"] == "3" && $user[0]["valoracions"] >= 10){
+            $this->upgrade_role();
+        }
         //if session isn't started redirect to home
         if(!session::get('user')){
             header("Location: /");
             return;
         }
+
         //get all stories
+        $only_stories = $this->model->get_stories();
+
+        //new array
+        $stories = Array();
+
+        //get story and set valoration about story from current user
+        foreach ($only_stories as $story){
+            $val = $this->val_story($story["idstory"]);
+            if(!empty($val)){
+                $story["val"] = $val[0]["val"];
+            }else{
+                $story["val"] = 0;
+            }
+            array_push($stories,$story);
+        }
+
         $data = array(
-            'user' => Session::get('user'),
-            'stories' => $this->model->get_stories()
-            );
+            'user' => $user,
+            'stories' => $stories
+        );
 
         //pass to view data
         $this->addData($data);
@@ -142,7 +171,6 @@ class dashboard extends Controller
         }
 
     }
-
     function rating(){
 
         //get id story from method ajax
@@ -162,6 +190,98 @@ class dashboard extends Controller
 
         if($result){
             return $this->ajax($result);
+        }
+
+    }
+
+     function refresh_user(){
+
+        $user = Session::get('user');
+        $email = $user[0]['email'];
+        $pass = $user[0]['passwd'];
+
+        //if is empty email or password redirect to login again
+        if(empty($email) || empty($pass)){
+            header("Location:/login");
+        }
+
+        //testing login
+        $result = $this->model->reload_user($email,$pass);
+
+        //if login is success create a variable session, else redirect to login again
+        if($result){
+            Session::set('user',$result);
+            $this->ajax(true);
+        }else{
+            Session::del('user');
+            header("Location: /login");
+            $this->ajax(false);
+        }
+    }
+
+    function upgrade_role(){
+        //get user
+        $user = Session::get('user');
+
+        //test user if empty
+        if(empty($user)){
+            return false;
+        }
+
+        //fill array with id
+        $data = array(
+            "id"      => $user[0]["idusers"]
+        );
+
+        //pass to model method data
+        $this->model->role($data);
+    }
+
+    function val_story($id_story){
+
+        //get user
+        $user = Session::get('user');
+
+        //test user if empty
+        if(empty($user)){
+            return false;
+        }
+
+        //fill array with id
+        $data = array(
+            "id"      => $user[0]["idusers"],
+            "id_story"      => $id_story
+        );
+
+        //pass to model method data
+        return $this->model->val_user($data);
+
+    }
+
+    function edit(){
+
+        //get inputs from ajax
+        $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
+        $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
+        $username = filter_input(INPUT_POST,'username',FILTER_SANITIZE_ENCODED);
+        $id = filter_input(INPUT_POST,'id',FILTER_SANITIZE_ENCODED);
+
+        //fill array
+        $data = array(
+            "email" => $email,
+            "pass" => $pass,
+            "username" => $username,
+            "id" => $id
+        );
+
+        //pass inputs to model for add user
+        $resul = $this->model->edit_user($data);
+
+        if($resul){
+
+            $this->refresh_user();
+            header("Location: /dashboard");
+            return $this->ajax(true);
         }
 
     }
