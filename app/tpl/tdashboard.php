@@ -148,13 +148,14 @@ include 'head_common.php';
 
 
                 <div id="container">
+                    <div class="row">
                         <?php
                             for($i=0;$i<count($this->dataTable["stories"]);$i++){
                                 $stories = $this->dataTable["stories"];
                                 $story = $stories[$i];
-                                if($i % 4 == 0)
+                                if($i > 0 && $i % 3 == 0)
                                 {
-                                    echo "<div class='row '><div class='success col-md-4 text-center'><div class='story-container'>";
+                                    echo "</div><div class='row '><div class='success col-md-4 text-center'><div class='story-container'>";
                                 }
                                 else
                                 {
@@ -177,9 +178,9 @@ include 'head_common.php';
                                     echo "<td></td>";
                                 }
 
-                                    echo "<div>#".$i." ".$story["title"]."</div>";
-                                    echo "<div><span>".$story["history"]."</span></div>";
-                                    echo "<div >".$story["username"]."</div>";
+                                    echo "<div>#".$i." <h1>Title:</h1>".$story["title"]."</div>";
+                                    echo "<div> <h2>Story:</h2>".$story["history"]."</div>";
+                                    echo "<div> <h2>Author:</h2>".$story["username"]."</div>";
 
                                     echo "<div id='rate'>";
                                             for($j=0;$j <=  4;$j++){
@@ -191,7 +192,7 @@ include 'head_common.php';
                                                 }
                                             }
                                     echo '</div>';
-                                if($i % 4 == 0)
+                                if($i > 0 && $i % 3 == 0)
                                 {
                                     echo "</div></div>";
                                 }
