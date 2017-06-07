@@ -2,16 +2,30 @@ body {
     margin: 0;
     padding: 0;
 }
+header .container-fluid{
+    width:100%;
+}
+header .row{
+ border-bottom: 1px solid #1b6d85;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+h1{
+    margin: 0;
+}
 header{
-    background-color: black;
-    opacity:0.8;
+    display: flex;
+    align-items: center;
 }
 a {
-    color: #fff;
+    cursor: pointer;
+    color: #1b6d85;
     text-decoration: none;
 }
 a:hover {
-    color: #fff;
+    color: #1b6d85;
     text-decoration: none;
 }
 .ul-rss .fa{
@@ -21,10 +35,7 @@ a:hover {
 ul{
     list-style: none;
 }
-.ul-rss{
-    text-align: center;
-    margin-top: 1%;
-}
+
 h1{
     text-transform: uppercase;
 }

@@ -48,14 +48,22 @@ include 'head_common.php';
                     </div>
                     <div class="row text-center user-edit">
                         <input type="hidden" value="<?= $user["idusers"]?>" id="user_id" name="id_user">
-                        <button id="save-user" class="btn btn-success">Save</button>
-                        <button id="exit-button" class="btn btn-danger">Exit</button>
+                        <div class="col-md-6">
+                            <button id="save-user" class="btn btn-success">Save</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id="exit-button" class="btn btn-danger">Exit</button>
+                        </div>
                     </div>
                    <div class="row text-center">
                        <?php
                        if(\X\Sys\Session::exist('user')){
-                           echo'<button id="edit-profile" class="btn btn-info">Edit</button>';
-                           echo'<a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>';
+                           echo'<div class="col-md-6">
+                                    <button id="edit-profile" class="btn btn-info">Edit</button>
+                                </div>';
+                           echo'<div class="col-md-6">
+                                    <a href="login/disconnect" id="disconnect" class="btn btn-danger">Disconnect</a>
+                                </div>';
                        }
                        ?>
                    </div>
@@ -138,70 +146,61 @@ include 'head_common.php';
 
 
 
-                <!-- TABLE  -->
-                <table class="tab-main table table-condensed">
-                    <tr>
-                        <td>#</td>
-                        <?php
-                            if( $user["roles"] == "2" || $user["roles"] == "1"){
-                                echo '<td>CHECK</td>';
-                            }
-                        ?>
-                        <td>USERNAME</td>
-                        <td>TITLE</td>
-                        <td>RATING</td>
-                        <td>STORY</td>
-                        <td>DATE</td>
 
-                    </tr>
-                </table>
-                <div id="container-tab">
-                    <table class="table table-condensed">
+                <div id="container">
                         <?php
                             for($i=0;$i<count($this->dataTable["stories"]);$i++){
-                                if($i == 0){
-                                    echo "<tr class='success'>";
-                                }else{
-                                    echo "<tr class='active'>";
-                                }
-                                echo "<td>".$i."</td>";
                                 $stories = $this->dataTable["stories"];
                                 $story = $stories[$i];
+                                if($i % 4 == 0)
+                                {
+                                    echo "<div class='row '><div class='success col-md-4 text-center'><div class='story-container'>";
+                                }
+                                else
+                                {
+                                    echo "<div class='col-md-4 text-center'><div class='story-container'>";
+                                }
+
 
                                 if($user["idusers"] == $story["idusers"] || $user["roles"] == "1"){
                                     echo "
-                                           <label for='id'>
-                                                <td class='yours' >
+                                           <div for='id'>
+                                                <div class='yours' >
                                                         <input id='id' type='checkbox'  name='storyid' value='".$story["idstory"]."'>
                                                         <a class='edit' data-toggle='modal' data-target='#modal_edit' data-whatever='@mdo'>
                                                             <input type='hidden' value='".$story["idstory"]."' class='id' >
-                                                            <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>
+                                                            <button class='btn btn-info'>Edit</button>
                                                         </a>
-                                                </td>
-                                           </label>";
+                                                </div>
+                                           </div>";
                                 }else {
                                     echo "<td></td>";
                                 }
 
-                                    echo "<td >".$story["username"]."</td>";
-                                    echo "<td>".$story["title"]."</td>";
-                                    echo "<td>".$story["history"]."</td>";
-                                    echo "<td id='rate'>";
-                                            for($j=0;$j < 5;$j++){
-                                                if($j < $story["val"]){
+                                    echo "<div>#".$i." ".$story["title"]."</div>";
+                                    echo "<div><span>".$story["history"]."</span></div>";
+                                    echo "<div >".$story["username"]."</div>";
+
+                                    echo "<div id='rate'>";
+                                            for($j=0;$j <=  4;$j++){
+                                                if($j <= $story["val"]){
                                                     echo "<a class='rate' ><i class='star fa fa-star' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='$j'> </i></a>";
                                                 }else{
                                                     echo "<a class='rate' ><i class='star fa fa-star-o' aria-hidden='true'><input class='story_id' type='hidden' value='".$story["idstory"]."'><input class='input-rate' type='hidden' value='$j'> </i></a>";
 
                                                 }
                                             }
-
-                                    echo "<td>".$story["date_in"]."</td>";
-
-                                echo"</tr>";
+                                    echo '</div>';
+                                if($i % 4 == 0)
+                                {
+                                    echo "</div></div>";
+                                }
+                                else
+                                {
+                                    echo "</div></div>";
+                                }
                             }
                         ?>
-                    </table>
                 </div>
             </div>
 

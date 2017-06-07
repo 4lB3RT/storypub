@@ -1,0 +1,14 @@
+section{
+    height:600px;
+}
+
+section .row{
+    height:100%;
+}
+
+section .row div{
+    height:100%;
+}
+section .row div:first-child{
+    background-color: #1b6d85;
+}

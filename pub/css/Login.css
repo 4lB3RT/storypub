@@ -1,5 +1,12 @@
-section{
+section > .container-fluid{
     font-size:2em;
+    display: flex;
+    flex-direction: column;
+    height:500px;
+}
+section > .container-fluid >div{
+    width:100%;
+    flex-grow: 1;
 }
 .btn{
     background-color: transparent;

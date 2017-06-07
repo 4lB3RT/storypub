@@ -66,7 +66,7 @@ class dashboard extends Controller
             'stories' => $stories
         );
 
-        //pass to view data
+        //pass data to view
         $this->addData($data);
         $this->view->__construct($this->dataView,$this->dataTable);
         $this->view->show();
@@ -262,14 +262,14 @@ class dashboard extends Controller
 
         //get inputs from ajax
         $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
-        $pass = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
+        $passwd = filter_input(INPUT_POST,'pass',FILTER_SANITIZE_ENCODED);
         $username = filter_input(INPUT_POST,'username',FILTER_SANITIZE_ENCODED);
         $id = filter_input(INPUT_POST,'id',FILTER_SANITIZE_ENCODED);
 
         //fill array
         $data = array(
             "email" => $email,
-            "pass" => $pass,
+            "passwd" => $passwd,
             "username" => $username,
             "id" => $id
         );
@@ -278,9 +278,9 @@ class dashboard extends Controller
         $resul = $this->model->edit_user($data);
 
         if($resul){
-
+            $user = array(0 => $data);
+            Session::set('user',$user);
             $this->refresh_user();
-            header("Location: /dashboard");
             return $this->ajax(true);
         }
 

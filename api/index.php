@@ -3,6 +3,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 //fichero con la configuracion de la base de datos
+require 'vendor/autoload.php';
 require 'config.slim.php';
 
 
@@ -16,7 +17,7 @@ $app = new \Slim\App(['settings'=>$config]);
         return $pdo;
     };
 
-    $app->get('/user',function (Request $req ,Response $res){
+    $app->get('/user',function (Request $request ,Response $response){
        $stmt=$this->db->prepare("SELECT * FROM users");
        $stmt->execute();
        $result =$stmt->fetchAll();

@@ -49,8 +49,7 @@ $(document).ready(function(){
             url:"dashboard/rating",
             data:dataString,
             success: function () {
-
-                $(".star",this).attr("class"," star fa fa-star");
+                $("#rate",this).remove();
 
             }
         })
@@ -93,14 +92,7 @@ $(document).ready(function(){
                     url: '/dashboard/edit',
                     data:dataString,
                     success: function(data) {
-                        console.log(data);
-                        if(data){
-                            window.location.href = "/";
-                        }else{
-                            $("#msg").empty();
-                            $("#msg").fadeIn();
-                            $("#msg").html("<h3>Not update info</h3>");
-                        }
+                        window.location.href = "/";
                     }
                 })
 

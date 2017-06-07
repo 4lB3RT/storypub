@@ -9,8 +9,10 @@
 	use \X\Sys\Autoload;
 	use \X\Sys\Core;
 
+	//create a new object autoload
 	$loader=new Autoload();
 	$loader->register();
+	//define namespaces
 	$loader->addNamespace('X\Sys','sys');
 	$loader->addNamespace('X\App','app');
 	$loader->addNamespace('X\App\Controllers','app/controllers');
