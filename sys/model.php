@@ -50,37 +50,45 @@
 	    	$this->stmt->bindValue($param, $value, $type);
 	}
 
+	//method for execute query return true or false
 	public function execute(){
 		$result=$this->stmt->execute();
     	return $result;
 	}
 
+	//return all rows
 	public function resultset(){
     	
 		return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
+	//return single row
 	public function single(){
 	    
 	    return $this->stmt->fetch(\PDO::FETCH_ASSOC);
 	}
 
+	//return a number rows
 	public function rowCount(){
 	    return $this->stmt->rowCount();
 	}
 
+    //return last id insert
 	public function lastInsertId(){
     	return $this->db->lastInsertId();
 	}
 
+	//begin transaction
 	public function beginTransaction(){
 	    return $this->db->beginTransaction();
 	}
 
+	//end transaction
 	public function endTransaction(){
 	    return $this->db->commit();
 	}
 
+	//cancelled transaction
 	public function cancelTransaction(){
 	    return $this->db->rollBack();
 	}
