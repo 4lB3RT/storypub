@@ -1,6 +1,6 @@
 <?php
 
-namespace Fast\Dispatcher;
+namespace FastRoute\Dispatcher;
 
 class MarkBasedTest extends DispatcherTest {
     public function setUp() {
@@ -11,10 +11,10 @@ class MarkBasedTest extends DispatcherTest {
     }
 
     protected function getDispatcherClass() {
-        return 'Fast\\Dispatcher\\MarkBased';
+        return 'FastRoute\\Dispatcher\\MarkBased';
     }
 
     protected function getDataGeneratorClass() {
-        return 'Fast\\DataGenerator\\MarkBased';
+        return 'FastRoute\\DataGenerator\\MarkBased';
     }
 }

@@ -1,21 +1,21 @@
 <?php
 
-namespace Fast;
+namespace FastRoute;
 
 interface DataGenerator {
     /**
-     * Adds a  to the data generator. The  data uses the
-     * same format that is returned by rParser::parser().
+     * Adds a route to the data generator. The route data uses the
+     * same format that is returned by RouterParser::parser().
      *
      * The handler doesn't necessarily need to be a callable, it
-     * can be arbitrary data that will be returned when the
+     * can be arbitrary data that will be returned when the route
      * matches.
      *
      * @param string $httpMethod
-     * @param array $Data
+     * @param array $routeData
      * @param mixed $handler
      */
-    public function add($httpMethod, $Data, $handler);
+    public function addRoute($httpMethod, $routeData, $handler);
 
     /**
      * Returns dispatcher data in some unspecified format, which

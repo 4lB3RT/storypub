@@ -11,15 +11,15 @@ namespace Slim\Interfaces;
 use Slim\App;
 
 /**
- * Group Interface
+ * RouteGroup Interface
  *
  * @package Slim
  * @since   3.0.0
  */
-interface GroupInterface
+interface RouteGroupInterface
 {
     /**
-     * Get  pattern
+     * Get route pattern
      *
      * @return string
      */
@@ -30,15 +30,15 @@ interface GroupInterface
      *
      * @param callable|string $callable The callback routine
      *
-     * @return GroupInterface
+     * @return RouteGroupInterface
      */
     public function add($callable);
 
     /**
-     * Execute  group callable in the context of the Slim App
+     * Execute route group callable in the context of the Slim App
      *
-     * This method invokes the  group object's callable, collecting
-     * nested  objects
+     * This method invokes the route group object's callable, collecting
+     * nested route objects
      *
      * @param App $app
      */

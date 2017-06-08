@@ -13,98 +13,98 @@ use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * r Interface
+ * Router Interface
  *
  * @package Slim
  * @since   3.0.0
  */
-interface rInterface
+interface RouterInterface
 {
-    // array keys from  result
+    // array keys from route result
     const DISPATCH_STATUS = 0;
     const ALLOWED_METHODS = 1;
 
     /**
-     * Add
+     * Add route
      *
      * @param string[] $methods Array of HTTP methods
-     * @param string   $pattern The  pattern
-     * @param callable $handler The  callable
+     * @param string   $pattern The route pattern
+     * @param callable $handler The route callable
      *
-     * @return Interface
+     * @return RouteInterface
      */
     public function map($methods, $pattern, $handler);
 
     /**
-     * Dispatch r for HTTP request
+     * Dispatch router for HTTP request
      *
      * @param  ServerRequestInterface $request The current HTTP request object
      *
      * @return array
      *
-     * @link   https://github.com/nikic/Fast/blob/master/src/Dispatcher.php
+     * @link   https://github.com/nikic/FastRoute/blob/master/src/Dispatcher.php
      */
     public function dispatch(ServerRequestInterface $request);
 
     /**
-     * Add a  group to the array
+     * Add a route group to the array
      *
      * @param string   $pattern The group pattern
      * @param callable $callable A group callable
      *
-     * @return GroupInterface
+     * @return RouteGroupInterface
      */
     public function pushGroup($pattern, $callable);
 
     /**
-     * Removes the last  group from the array
+     * Removes the last route group from the array
      *
      * @return bool True if successful, else False
      */
     public function popGroup();
 
     /**
-     * Get named  object
+     * Get named route object
      *
-     * @param string $name         name
+     * @param string $name        Route name
      *
-     * @return \Slim\Interfaces\Interface
+     * @return \Slim\Interfaces\RouteInterface
      *
-     * @throws RuntimeException   If named  does not exist
+     * @throws RuntimeException   If named route does not exist
      */
-    public function getNamed($name);
+    public function getNamedRoute($name);
 
     /**
      * @param $identifier
      *
-     * @return \Slim\Interfaces\Interface
+     * @return \Slim\Interfaces\RouteInterface
      */
-    public function lookup($identifier);
+    public function lookupRoute($identifier);
 
     /**
-     * Build the path for a named  excluding the base path
+     * Build the path for a named route excluding the base path
      *
-     * @param string $name         name
+     * @param string $name        Route name
      * @param array  $data        Named argument replacement data
      * @param array  $queryParams Optional query string parameters
      *
      * @return string
      *
-     * @throws RuntimeException         If named  does not exist
+     * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
     public function relativePathFor($name, array $data = [], array $queryParams = []);
 
     /**
-     * Build the path for a named  including the base path
+     * Build the path for a named route including the base path
      *
-     * @param string $name         name
+     * @param string $name        Route name
      * @param array  $data        Named argument replacement data
      * @param array  $queryParams Optional query string parameters
      *
      * @return string
      *
-     * @throws RuntimeException         If named  does not exist
+     * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
     public function pathFor($name, array $data = [], array $queryParams = []);

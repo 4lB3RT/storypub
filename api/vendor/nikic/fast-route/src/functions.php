@@ -1,43 +1,43 @@
 <?php
 
-namespace Fast;
+namespace FastRoute;
 
-if (!function_exists('Fast\simpleDispatcher')) {
+if (!function_exists('FastRoute\simpleDispatcher')) {
     /**
-     * @param callable $DefinitionCallback
+     * @param callable $routeDefinitionCallback
      * @param array $options
      *
      * @return Dispatcher
      */
-    function simpleDispatcher(callable $DefinitionCallback, array $options = []) {
+    function simpleDispatcher(callable $routeDefinitionCallback, array $options = []) {
         $options += [
-            'Parser' => 'Fast\\Parser\\Std',
-            'dataGenerator' => 'Fast\\DataGenerator\\GroupCountBased',
-            'dispatcher' => 'Fast\\Dispatcher\\GroupCountBased',
-            'Collector' => 'Fast\\Collector',
+            'routeParser' => 'FastRoute\\RouteParser\\Std',
+            'dataGenerator' => 'FastRoute\\DataGenerator\\GroupCountBased',
+            'dispatcher' => 'FastRoute\\Dispatcher\\GroupCountBased',
+            'routeCollector' => 'FastRoute\\RouteCollector',
         ];
 
-        /** @var Collector $Collector */
-        $Collector = new $options['Collector'](
-            new $options['Parser'], new $options['dataGenerator']
+        /** @var RouteCollector $routeCollector */
+        $routeCollector = new $options['routeCollector'](
+            new $options['routeParser'], new $options['dataGenerator']
         );
-        $DefinitionCallback($Collector);
+        $routeDefinitionCallback($routeCollector);
 
-        return new $options['dispatcher']($Collector->getData());
+        return new $options['dispatcher']($routeCollector->getData());
     }
 
     /**
-     * @param callable $DefinitionCallback
+     * @param callable $routeDefinitionCallback
      * @param array $options
      *
      * @return Dispatcher
      */
-    function cachedDispatcher(callable $DefinitionCallback, array $options = []) {
+    function cachedDispatcher(callable $routeDefinitionCallback, array $options = []) {
         $options += [
-            'Parser' => 'Fast\\Parser\\Std',
-            'dataGenerator' => 'Fast\\DataGenerator\\GroupCountBased',
-            'dispatcher' => 'Fast\\Dispatcher\\GroupCountBased',
-            'Collector' => 'Fast\\Collector',
+            'routeParser' => 'FastRoute\\RouteParser\\Std',
+            'dataGenerator' => 'FastRoute\\DataGenerator\\GroupCountBased',
+            'dispatcher' => 'FastRoute\\Dispatcher\\GroupCountBased',
+            'routeCollector' => 'FastRoute\\RouteCollector',
             'cacheDisabled' => false,
         ];
 
@@ -53,13 +53,13 @@ if (!function_exists('Fast\simpleDispatcher')) {
             return new $options['dispatcher']($dispatchData);
         }
 
-        $Collector = new $options['Collector'](
-            new $options['Parser'], new $options['dataGenerator']
+        $routeCollector = new $options['routeCollector'](
+            new $options['routeParser'], new $options['dataGenerator']
         );
-        $DefinitionCallback($Collector);
+        $routeDefinitionCallback($routeCollector);
 
-        /** @var Collector $Collector */
-        $dispatchData = $Collector->getData();
+        /** @var RouteCollector $routeCollector */
+        $dispatchData = $routeCollector->getData();
         if (!$options['cacheDisabled']) {
             file_put_contents(
                 $options['cacheFile'],

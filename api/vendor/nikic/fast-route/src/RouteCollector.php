@@ -1,47 +1,47 @@
 <?php
 
-namespace Fast;
+namespace FastRoute;
 
-class Collector {
-    protected $Parser;
+class RouteCollector {
+    protected $routeParser;
     protected $dataGenerator;
     protected $currentGroupPrefix;
 
     /**
-     * Constructs a  collector.
+     * Constructs a route collector.
      *
-     * @param Parser   $Parser
+     * @param RouteParser   $routeParser
      * @param DataGenerator $dataGenerator
      */
-    public function __construct(Parser $Parser, DataGenerator $dataGenerator) {
-        $this->Parser = $Parser;
+    public function __construct(RouteParser $routeParser, DataGenerator $dataGenerator) {
+        $this->routeParser = $routeParser;
         $this->dataGenerator = $dataGenerator;
         $this->currentGroupPrefix = '';
     }
 
     /**
-     * Adds a  to the collection.
+     * Adds a route to the collection.
      *
-     * The syntax used in the $ string depends on the used  parser.
+     * The syntax used in the $route string depends on the used route parser.
      *
      * @param string|string[] $httpMethod
-     * @param string $
+     * @param string $route
      * @param mixed  $handler
      */
-    public function add($httpMethod, $, $handler) {
-        $ = $this->currentGroupPrefix . $;
-        $Datas = $this->Parser->parse($);
+    public function addRoute($httpMethod, $route, $handler) {
+        $route = $this->currentGroupPrefix . $route;
+        $routeDatas = $this->routeParser->parse($route);
         foreach ((array) $httpMethod as $method) {
-            foreach ($Datas as $Data) {
-                $this->dataGenerator->add($method, $Data, $handler);
+            foreach ($routeDatas as $routeData) {
+                $this->dataGenerator->addRoute($method, $routeData, $handler);
             }
         }
     }
 
     /**
-     * Create a  group with a common prefix.
+     * Create a route group with a common prefix.
      *
-     * All s created in the passed callback will have the given group prefix prepended.
+     * All routes created in the passed callback will have the given group prefix prepended.
      *
      * @param string $prefix
      * @param callable $callback
@@ -54,79 +54,79 @@ class Collector {
     }
     
     /**
-     * Adds a GET  to the collection
+     * Adds a GET route to the collection
      * 
-     * This is simply an alias of $this->add('GET', $, $handler)
+     * This is simply an alias of $this->addRoute('GET', $route, $handler)
      *
-     * @param string $
+     * @param string $route
      * @param mixed  $handler
      */
-    public function get($, $handler) {
-        $this->add('GET', $, $handler);
+    public function get($route, $handler) {
+        $this->addRoute('GET', $route, $handler);
     }
     
     /**
-     * Adds a POST  to the collection
+     * Adds a POST route to the collection
      * 
-     * This is simply an alias of $this->add('POST', $, $handler)
+     * This is simply an alias of $this->addRoute('POST', $route, $handler)
      *
-     * @param string $
+     * @param string $route
      * @param mixed  $handler
      */
-    public function post($, $handler) {
-        $this->add('POST', $, $handler);
+    public function post($route, $handler) {
+        $this->addRoute('POST', $route, $handler);
     }
     
     /**
-     * Adds a PUT  to the collection
+     * Adds a PUT route to the collection
      * 
-     * This is simply an alias of $this->add('PUT', $, $handler)
+     * This is simply an alias of $this->addRoute('PUT', $route, $handler)
      *
-     * @param string $
+     * @param string $route
      * @param mixed  $handler
      */
-    public function put($, $handler) {
-        $this->add('PUT', $, $handler);
+    public function put($route, $handler) {
+        $this->addRoute('PUT', $route, $handler);
     }
     
     /**
-     * Adds a DELETE  to the collection
+     * Adds a DELETE route to the collection
      * 
-     * This is simply an alias of $this->add('DELETE', $, $handler)
+     * This is simply an alias of $this->addRoute('DELETE', $route, $handler)
      *
-     * @param string $
+     * @param string $route
      * @param mixed  $handler
      */
-    public function delete($, $handler) {
-        $this->add('DELETE', $, $handler);
+    public function delete($route, $handler) {
+        $this->addRoute('DELETE', $route, $handler);
     }
     
     /**
-     * Adds a PATCH  to the collection
+     * Adds a PATCH route to the collection
      * 
-     * This is simply an alias of $this->add('PATCH', $, $handler)
+     * This is simply an alias of $this->addRoute('PATCH', $route, $handler)
      *
-     * @param string $
+     * @param string $route
      * @param mixed  $handler
      */
-    public function patch($, $handler) {
-        $this->add('PATCH', $, $handler);
+    public function patch($route, $handler) {
+        $this->addRoute('PATCH', $route, $handler);
     }
 
     /**
-     * Adds a HEAD  to the collection
+     * Adds a HEAD route to the collection
      *
-     * This is simply an alias of $this->add('HEAD', $, $handler)
+     * This is simply an alias of $this->addRoute('HEAD', $route, $handler)
      *
-     * @param string $
+     * @param string $route
      * @param mixed  $handler
      */
-    public function head($, $handler) {
-        $this->add('HEAD', $, $handler);
+    public function head($route, $handler) {
+        $this->addRoute('HEAD', $route, $handler);
     }
 
     /**
-     * Returns the collected  data, as provided by the data generator.
+     * Returns the collected route data, as provided by the data generator.
      *
      * @return array
      */

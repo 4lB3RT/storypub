@@ -1,14 +1,14 @@
 <?php
 
-namespace Fast\Dispatcher;
+namespace FastRoute\Dispatcher;
 
 class GroupPosBased extends RegexBasedAbstract {
     public function __construct($data) {
-        list($this->staticMap, $this->variableData) = $data;
+        list($this->staticRouteMap, $this->variableRouteData) = $data;
     }
 
-    protected function dispatchVariable($Data, $uri) {
-        foreach ($Data as $data) {
+    protected function dispatchVariableRoute($routeData, $uri) {
+        foreach ($routeData as $data) {
             if (!preg_match($data['regex'], $uri, $matches)) {
                 continue;
             }
@@ -16,7 +16,7 @@ class GroupPosBased extends RegexBasedAbstract {
             // find first non-empty match
             for ($i = 1; '' === $matches[$i]; ++$i);
 
-            list($handler, $varNames) = $data['Map'][$i];
+            list($handler, $varNames) = $data['routeMap'][$i];
 
             $vars = [];
             foreach ($varNames as $varName) {

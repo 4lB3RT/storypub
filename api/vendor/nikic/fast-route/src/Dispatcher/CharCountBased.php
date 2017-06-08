@@ -1,19 +1,19 @@
 <?php
 
-namespace Fast\Dispatcher;
+namespace FastRoute\Dispatcher;
 
 class CharCountBased extends RegexBasedAbstract {
     public function __construct($data) {
-        list($this->staticMap, $this->variableData) = $data;
+        list($this->staticRouteMap, $this->variableRouteData) = $data;
     }
 
-    protected function dispatchVariable($Data, $uri) {
-        foreach ($Data as $data) {
+    protected function dispatchVariableRoute($routeData, $uri) {
+        foreach ($routeData as $data) {
             if (!preg_match($data['regex'], $uri . $data['suffix'], $matches)) {
                 continue;
             }
 
-            list($handler, $varNames) = $data['Map'][end($matches)];
+            list($handler, $varNames) = $data['routeMap'][end($matches)];
 
             $vars = [];
             $i = 0;

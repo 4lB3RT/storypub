@@ -8,7 +8,7 @@
  */
 namespace Slim;
 
-use Fast\Dispatcher;
+use FastRoute\Dispatcher;
 use Psr\Container\ContainerInterface;
 use InvalidArgumentException;
 use RuntimeException;

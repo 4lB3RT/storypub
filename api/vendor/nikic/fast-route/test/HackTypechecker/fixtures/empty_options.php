@@ -1,11 +1,11 @@
 <?hh
 
-namespace Fast\TestFixtures;
+namespace FastRoute\TestFixtures;
 
-function empty_options_simple(): \Fast\Dispatcher {
-    return \Fast\simpleDispatcher($collector ==> {}, shape());
+function empty_options_simple(): \FastRoute\Dispatcher {
+    return \FastRoute\simpleDispatcher($collector ==> {}, shape());
 }
 
-function empty_options_cached(): \Fast\Dispatcher {
-    return \Fast\cachedDispatcher($collector ==> {}, shape());
+function empty_options_cached(): \FastRoute\Dispatcher {
+    return \FastRoute\cachedDispatcher($collector ==> {}, shape());
 }

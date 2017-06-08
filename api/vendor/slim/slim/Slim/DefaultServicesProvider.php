@@ -22,7 +22,7 @@ use Slim\Http\Response;
 use Slim\Interfaces\CallableResolverInterface;
 use Slim\Interfaces\Http\EnvironmentInterface;
 use Slim\Interfaces\InvocationStrategyInterface;
-use Slim\Interfaces\rInterface;
+use Slim\Interfaces\RouterInterface;
 
 /**
  * Slim's default Service Provider.
@@ -77,28 +77,28 @@ class DefaultServicesProvider
             };
         }
 
-        if (!isset($container['r'])) {
+        if (!isset($container['router'])) {
             /**
              * This service MUST return a SHARED instance
-             * of \Slim\Interfaces\rInterface.
+             * of \Slim\Interfaces\RouterInterface.
              *
              * @param Container $container
              *
-             * @return rInterface
+             * @return RouterInterface
              */
-            $container['r'] = function ($container) {
-                $rCacheFile = false;
-                if (isset($container->get('settings')['rCacheFile'])) {
-                    $rCacheFile = $container->get('settings')['rCacheFile'];
+            $container['router'] = function ($container) {
+                $routerCacheFile = false;
+                if (isset($container->get('settings')['routerCacheFile'])) {
+                    $routerCacheFile = $container->get('settings')['routerCacheFile'];
                 }
 
 
-                $r = (new r)->setCacheFile($rCacheFile);
-                if (method_exists($r, 'setContainer')) {
-                    $r->setContainer($container);
+                $router = (new Router)->setCacheFile($routerCacheFile);
+                if (method_exists($router, 'setContainer')) {
+                    $router->setContainer($container);
                 }
 
-                return $r;
+                return $router;
             };
         }
 

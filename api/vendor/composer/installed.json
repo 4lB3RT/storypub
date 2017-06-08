@@ -84,17 +84,17 @@
         "homepage": "https://github.com/container-interop/container-interop"
     },
     {
-        "name": "nikic/fast-",
+        "name": "nikic/fast-route",
         "version": "v1.2.0",
         "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/nikic/Fast.git",
+            "url": "https://github.com/nikic/FastRoute.git",
             "reference": "b5f95749071c82a8e0f58586987627054400cdf6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nikic/Fast/zipball/b5f95749071c82a8e0f58586987627054400cdf6",
+            "url": "https://api.github.com/repos/nikic/FastRoute/zipball/b5f95749071c82a8e0f58586987627054400cdf6",
             "reference": "b5f95749071c82a8e0f58586987627054400cdf6",
             "shasum": ""
         },
@@ -106,7 +106,7 @@
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Fast\\": "src/"
+                "FastRoute\\": "src/"
             },
             "files": [
                 "src/functions.php"
@@ -122,9 +122,9 @@
                 "email": "nikic@php.net"
             }
         ],
-        "description": "Fast request r for PHP",
+        "description": "Fast request router for PHP",
         "keywords": [
-            "r",
+            "router",
             "routing"
         ]
     },
@@ -245,7 +245,7 @@
         },
         "require": {
             "container-interop/container-interop": "^1.2",
-            "nikic/fast-": "^1.0",
+            "nikic/fast-route": "^1.0",
             "php": ">=5.5.0",
             "pimple/pimple": "^3.0",
             "psr/container": "^1.0",
@@ -298,7 +298,7 @@
             "api",
             "framework",
             "micro",
-            "r"
+            "router"
         ]
     }
 ]

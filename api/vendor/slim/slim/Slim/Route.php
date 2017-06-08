@@ -16,40 +16,40 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Exception\SlimException;
 use Slim\Handlers\Strategies\RequestResponse;
 use Slim\Interfaces\InvocationStrategyInterface;
-use Slim\Interfaces\Interface;
+use Slim\Interfaces\RouteInterface;
 
 /**
- *
+ * Route
  */
-class  extends Routable implements Interface
+class Route extends Routable implements RouteInterface
 {
     use MiddlewareAwareTrait;
 
     /**
-     * HTTP methods supported by this
+     * HTTP methods supported by this route
      *
      * @var string[]
      */
     protected $methods = [];
 
     /**
-     *  identifier
+     * Route identifier
      *
      * @var string
      */
     protected $identifier;
 
     /**
-     *  name
+     * Route name
      *
      * @var null|string
      */
     protected $name;
 
     /**
-     * Parent  groups
+     * Parent route groups
      *
-     * @var Group[]
+     * @var RouteGroup[]
      */
     protected $groups;
 
@@ -65,7 +65,7 @@ class  extends Routable implements Interface
     protected $outputBuffering = 'append';
 
     /**
-     *  parameters
+     * Route parameters
      *
      * @var array
      */
@@ -79,13 +79,13 @@ class  extends Routable implements Interface
     protected $callable;
 
     /**
-     * Create new
+     * Create new route
      *
-     * @param string|string[]   $methods The  HTTP methods
-     * @param string            $pattern The  pattern
-     * @param callable          $callable The  callable
-     * @param Group[]      $groups The parent  groups
-     * @param int               $identifier The  identifier
+     * @param string|string[]   $methods The route HTTP methods
+     * @param string            $pattern The route pattern
+     * @param callable          $callable The route callable
+     * @param RouteGroup[]      $groups The parent route groups
+     * @param int               $identifier The route identifier
      */
     public function __construct($methods, $pattern, $callable, $groups = [], $identifier = 0)
     {
@@ -93,11 +93,11 @@ class  extends Routable implements Interface
         $this->pattern  = $pattern;
         $this->callable = $callable;
         $this->groups   = $groups;
-        $this->identifier = '' . $identifier;
+        $this->identifier = 'route' . $identifier;
     }
 
     /**
-     * Finalize the  in preparation for dispatching
+     * Finalize the route in preparation for dispatching
      */
     public function finalize()
     {
@@ -120,7 +120,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Get  callable
+     * Get route callable
      *
      * @return callable
      */
@@ -130,7 +130,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * This method enables you to override the 's callable
+     * This method enables you to override the Route's callable
      *
      * @param string|\Closure $callable
      */
@@ -140,7 +140,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Get  methods
+     * Get route methods
      *
      * @return string[]
      */
@@ -150,9 +150,9 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Get parent  groups
+     * Get parent route groups
      *
-     * @return Group[]
+     * @return RouteGroup[]
      */
     public function getGroups()
     {
@@ -160,7 +160,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Get  name
+     * Get route name
      *
      * @return null|string
      */
@@ -170,7 +170,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Get  identifier
+     * Get route identifier
      *
      * @return string
      */
@@ -207,25 +207,25 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Set  name
+     * Set route name
      *
      * @param string $name
      *
      * @return self
      *
-     * @throws InvalidArgumentException if the  name is not a string
+     * @throws InvalidArgumentException if the route name is not a string
      */
     public function setName($name)
     {
         if (!is_string($name)) {
-            throw new InvalidArgumentException(' name must be a string');
+            throw new InvalidArgumentException('Route name must be a string');
         }
         $this->name = $name;
         return $this;
     }
 
     /**
-     * Set a  argument
+     * Set a route argument
      *
      * @param string $name
      * @param string $value
@@ -239,7 +239,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Replace  arguments
+     * Replace route arguments
      *
      * @param array $arguments
      *
@@ -252,7 +252,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Retrieve  arguments
+     * Retrieve route arguments
      *
      * @return array
      */
@@ -262,7 +262,7 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Retrieve a specific  argument
+     * Retrieve a specific route argument
      *
      * @param string $name
      * @param string|null $default
@@ -278,11 +278,11 @@ class  extends Routable implements Interface
     }
 
     /********************************************************************************
-     *  Runner
+     * Route Runner
      *******************************************************************************/
 
     /**
-     * Prepare the  for use
+     * Prepare the route for use
      *
      * @param ServerRequestInterface $request
      * @param array $arguments
@@ -296,9 +296,9 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Run
+     * Run route
      *
-     * This method traverses the middleware stack, including the 's callable
+     * This method traverses the middleware stack, including the route's callable
      * and captures the resultant HTTP response object. It then sends the response
      * back to the Application.
      *
@@ -309,7 +309,7 @@ class  extends Routable implements Interface
      */
     public function run(ServerRequestInterface $request, ResponseInterface $response)
     {
-        // Finalise  now that we are about to run it
+        // Finalise route now that we are about to run it
         $this->finalize();
 
         // Traverse middleware stack and fetch updated response
@@ -317,16 +317,16 @@ class  extends Routable implements Interface
     }
 
     /**
-     * Dispatch  callable against current Request and Response objects
+     * Dispatch route callable against current Request and Response objects
      *
-     * This method invokes the  object's callable. If middleware is
-     * registered for the , each callable middleware is invoked in
+     * This method invokes the route object's callable. If middleware is
+     * registered for the route, each callable middleware is invoked in
      * the order specified.
      *
      * @param ServerRequestInterface $request  The current Request object
      * @param ResponseInterface      $response The current Response object
      * @return \Psr\Http\Message\ResponseInterface
-     * @throws \Exception  if the  callable throws an exception
+     * @throws \Exception  if the route callable throws an exception
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
@@ -335,7 +335,7 @@ class  extends Routable implements Interface
         /** @var InvocationStrategyInterface $handler */
         $handler = isset($this->container) ? $this->container->get('foundHandler') : new RequestResponse();
 
-        // invoke  callable
+        // invoke route callable
         if ($this->outputBuffering === false) {
             $newResponse = $handler($this->callable, $request, $response, $this->arguments);
         } else {
@@ -355,10 +355,10 @@ class  extends Routable implements Interface
         }
 
         if ($newResponse instanceof ResponseInterface) {
-            // if  callback returns a ResponseInterface, then use it
+            // if route callback returns a ResponseInterface, then use it
             $response = $newResponse;
         } elseif (is_string($newResponse)) {
-            // if  callback returns a string, then append it to the response
+            // if route callback returns a string, then append it to the response
             if ($response->getBody()->isWritable()) {
                 $response->getBody()->write($newResponse);
             }

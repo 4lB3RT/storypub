@@ -24,7 +24,7 @@ use Slim\Exception\ContainerException as SlimContainerException;
  *  - environment: an instance of \Slim\Interfaces\Http\EnvironmentInterface
  *  - request: an instance of \Psr\Http\Message\ServerRequestInterface
  *  - response: an instance of \Psr\Http\Message\ResponseInterface
- *  - r: an instance of \Slim\Interfaces\rInterface
+ *  - router: an instance of \Slim\Interfaces\RouterInterface
  *  - foundHandler: an instance of \Slim\Interfaces\InvocationStrategyInterface
  *  - errorHandler: a callable with the signature: function($request, $response, $exception)
  *  - notFoundHandler: a callable with the signature: function($request, $response)
@@ -35,7 +35,7 @@ use Slim\Exception\ContainerException as SlimContainerException;
  * @property-read \Slim\Interfaces\Http\EnvironmentInterface environment
  * @property-read \Psr\Http\Message\ServerRequestInterface request
  * @property-read \Psr\Http\Message\ResponseInterface response
- * @property-read \Slim\Interfaces\rInterface r
+ * @property-read \Slim\Interfaces\RouterInterface router
  * @property-read \Slim\Interfaces\InvocationStrategyInterface foundHandler
  * @property-read callable errorHandler
  * @property-read callable notFoundHandler
@@ -53,10 +53,10 @@ class Container extends PimpleContainer implements ContainerInterface
         'httpVersion' => '1.1',
         'responseChunkSize' => 4096,
         'outputBuffering' => 'append',
-        'determineBeforeAppMiddleware' => false,
+        'determineRouteBeforeAppMiddleware' => false,
         'displayErrorDetails' => false,
         'addContentLengthHeader' => true,
-        'rCacheFile' => false,
+        'routerCacheFile' => false,
     ];
 
     /**

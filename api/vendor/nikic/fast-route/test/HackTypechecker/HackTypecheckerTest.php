@@ -1,6 +1,6 @@
 <?php
 
-namespace Fast;
+namespace FastRoute;
 
 class HackTypecheckerTest extends \PhpUnit_Framework_TestCase {
     const SERVER_ALREADY_RUNNING_CODE = 77;

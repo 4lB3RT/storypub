@@ -1,13 +1,13 @@
 <?php
 
-namespace Fast\Dispatcher;
+namespace FastRoute\Dispatcher;
 
 class CharCountBasedTest extends DispatcherTest {
     protected function getDispatcherClass() {
-        return 'Fast\\Dispatcher\\CharCountBased';
+        return 'FastRoute\\Dispatcher\\CharCountBased';
     }
 
     protected function getDataGeneratorClass() {
-        return 'Fast\\DataGenerator\\CharCountBased';
+        return 'FastRoute\\DataGenerator\\CharCountBased';
     }
 }

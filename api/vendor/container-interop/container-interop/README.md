@@ -118,7 +118,7 @@ The list below contains only a sample of all the projects consuming `ContainerIn
 | [Behat](https://github.com/Behat/Behat/pull/974) | ![](https://img.shields.io/packagist/dt/behat/behat.svg) |
 | [blast-facades](https://github.com/phpthinktank/blast-facades): Minimize complexity and represent dependencies as facades. | ![](https://img.shields.io/packagist/dt/blast/facades.svg) |
 | [interop.silex.di](https://github.com/thecodingmachine/interop.silex.di): an extension to [Silex](http://silex.sensiolabs.org/) that adds support for any *container-interop* compatible container | ![](https://img.shields.io/packagist/dt/mouf/interop.silex.di.svg) |
-| [mindplay/walkway](https://github.com/mindplay-dk/walkway): a modular request r | ![](https://img.shields.io/packagist/dt/mindplay/walkway.svg) |
+| [mindplay/walkway](https://github.com/mindplay-dk/walkway): a modular request router | ![](https://img.shields.io/packagist/dt/mindplay/walkway.svg) |
 | [mindplay/middleman](https://github.com/mindplay-dk/middleman): minimalist PSR-7 middleware dispatcher | ![](https://img.shields.io/packagist/dt/mindplay/middleman.svg) |
 | [PHP-DI/Invoker](https://github.com/PHP-DI/Invoker): extensible and configurable invoker/dispatcher | ![](https://img.shields.io/packagist/dt/php-di/invoker.svg) |
 | [Prophiler](https://github.com/fabfuel/prophiler) | ![](https://img.shields.io/packagist/dt/fabfuel/prophiler.svg) |

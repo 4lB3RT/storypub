@@ -1,15 +1,15 @@
 <?php
 
-namespace Fast;
+namespace FastRoute;
 
-class  {
+class Route {
     public $httpMethod;
     public $regex;
     public $variables;
     public $handler;
 
     /**
-     * Constructs a  (value object).
+     * Constructs a route (value object).
      *
      * @param string $httpMethod
      * @param mixed  $handler
@@ -24,7 +24,7 @@ class  {
     }
 
     /**
-     * Tests whether this  matches the given string.
+     * Tests whether this route matches the given string.
      *
      * @param string $str
      *

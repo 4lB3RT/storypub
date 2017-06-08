@@ -1,27 +1,27 @@
 <?hh
 
-namespace Fast\TestFixtures;
+namespace FastRoute\TestFixtures;
 
-function all_options_simple(): \Fast\Dispatcher {
-    return \Fast\simpleDispatcher(
+function all_options_simple(): \FastRoute\Dispatcher {
+    return \FastRoute\simpleDispatcher(
       $collector ==> {},
       shape(
-        'Parser' => \Fast\Parser\Std::class,
-        'dataGenerator' => \Fast\DataGenerator\GroupCountBased::class,
-        'dispatcher' => \Fast\Dispatcher\GroupCountBased::class,
-        'Collector' => \Fast\Collector::class,
+        'routeParser' => \FastRoute\RouteParser\Std::class,
+        'dataGenerator' => \FastRoute\DataGenerator\GroupCountBased::class,
+        'dispatcher' => \FastRoute\Dispatcher\GroupCountBased::class,
+        'routeCollector' => \FastRoute\RouteCollector::class,
       ),
     );
 }
 
-function all_options_cached(): \Fast\Dispatcher {
-    return \Fast\cachedDispatcher(
+function all_options_cached(): \FastRoute\Dispatcher {
+    return \FastRoute\cachedDispatcher(
       $collector ==> {},
       shape(
-        'Parser' => \Fast\Parser\Std::class,
-        'dataGenerator' => \Fast\DataGenerator\GroupCountBased::class,
-        'dispatcher' => \Fast\Dispatcher\GroupCountBased::class,
-        'Collector' => \Fast\Collector::class,
+        'routeParser' => \FastRoute\RouteParser\Std::class,
+        'dataGenerator' => \FastRoute\DataGenerator\GroupCountBased::class,
+        'dispatcher' => \FastRoute\Dispatcher\GroupCountBased::class,
+        'routeCollector' => \FastRoute\RouteCollector::class,
         'cacheFile' => '/dev/null',
         'cacheDisabled' => false,
       ),
